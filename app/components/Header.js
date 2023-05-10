@@ -131,7 +131,7 @@ export default function Header() {
                         }
                         let user = {user_id, password}
 
-                        fetch('http://localhost:3000/api/login', {
+                        fetch('https://min-tax-8h5x.vercel.app/api/login', {
                             method: 'POST',
                             body: JSON.stringify(user)
                         })
