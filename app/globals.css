@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://webfontworld.github.io/NexonLv1Gothic/NexonLv1Gothic.css');
+.nexon {
+  font-family: 'NexonLv1Gothic';
+  font-weight: 400;
+}  
+
+
+/* 서서히 사라지기 */
+.start2 {
+  opacity: 1;
+  display: block;
+  transition: all 0.2s;
+}
+.end2 {
+    opacity: 0;
+    display: block;
+    transition: all 0.3s;
+}
+.none {
+  height: 0;
+}
+
+
+/* 모바일 설정 */
+
+@media (max-width: 1024px) {
+
+  .middle {
+    display: none;
+  }
+  nav {
+    /* display: none; */
+    /* display: block; */
+    /* flex-direction: column; */    
+    height: 100vh;
+    /* width: 600px; */
+    width: 320px;
+    font-size: 18px;    
+    top: 120px;
+    right: -600px;
+    color: black;
+    position: absolute;
+    background-color: white;   
+    border: 1px solid grey;    
+  }
+  .header {
+    height: 80px;
+  }
+
+  .hambuger {
+    display: block;
+    position: absolute;
+    top: 48px;
+    left: 10px;
+  }  
+  .start {
+    opacity: 0;
+    display: block;
+    transform: fade;
+    top: 80px;
+    right: -600px;
+    /* transition: all 0.2s; */
+    transition: all 0.2s;
+  }
+  .end {
+      opacity: 1;
+      display: block;
+      top: 80px;
+      right: -40px;
+      /* transition: all 0.3s; */
+      transition: all 0.3s;
+  }
+  .start2 {
+    opacity: 1;
+    display: block;
+    /* transform: blur; */
+    /* transition: all 0.2s; */
+    transition: all 0.3s;
+  }
+  .end2 {
+      opacity: 0;
+      display: block;
+      /* transition: all 0.3s; */
+      transition: all 0.3s;
+      /* display: none; */
+  }
+}
