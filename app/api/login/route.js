@@ -1,5 +1,7 @@
 const {pool} = require('../../DB/db');
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
+import { cookies } from 'next/dist/client/components/headers';
 
 // 회원 정보 API 제공 (GET)
 export async function GET(req) {
@@ -23,7 +25,36 @@ export async function POST(req) {
         let pwcheck = await bcrypt.compare(body.password, result[0].password)          
         if(!pwcheck) return new Response(JSON.stringify({msg: 'pw_fail'}))   
         
-        let data = {msg: 'success', nickName: result[0].nickName }
+        // JWT 처리
+        let JWT_ACCESS_SECRET='springstar74'
+        let JWT_RFRESH_SECRET='coonjin74'
+
+        const userJsonData = { nickName: result[0].nickName, user_id: result[0].user_id }	
+
+        const token = jwt.sign(userJsonData, JWT_ACCESS_SECRET, {
+            expiresIn: '5h',                  // 2400h(100일) 60m, 10s, 24h
+            issuer: 'springStar',
+        });
+        
+        const refreshToken = jwt.sign(userJsonData, JWT_RFRESH_SECRET, {
+            expiresIn: '12h',                 // 2400h(100일) 60m, 10s, 24h
+            issuer: 'springStar',
+        });            
+
+        let data = { 
+            msg: 'success', 
+            jwttoken: token, 
+            nickName: result[0].nickName, 
+            user_id: result[0].user_id,                 
+        }
+        cookies().set('accessToken', token, {
+            secure: false,
+            httpOnly:false
+        })
+        cookies().set('refreshToken', refreshToken, {
+            secure: false,
+            httpOnly:false
+        })
         return new Response(JSON.stringify(data))        
 
     } catch (err) {

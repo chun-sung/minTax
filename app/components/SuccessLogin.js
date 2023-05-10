@@ -2,31 +2,32 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login, logout } from "../store/user";
+import { SET_LOGIN, SET_LOGOUT } from "../Redux/reducers/userSlice";
+import { useRouter } from "next/navigation";
+
+// import { login, logout } from "../store/user";
 
 // login/success 로 요청을 보내는 로직(토큰 전송 /사용자 구분)
-function SuccessLogin() {
+export default function SuccessLogin() {
     
-    let [isLogin, setIsLogin] = useState(false);
     let dispatch = useDispatch();
-    let user = useSelector(state => state.user)
-    
-        useEffect(()=> {
+    let router = useRouter();
 
+    useEffect(()=> {           
             axios({
-                url: "http://localhost:3000/login/success",
+                url: "https://min-tax-8h5x.vercel.app/api/login/success",
                 method: "GET",
                 withCredentials: true,
             })
             .then((result) => {
-                if(result.data.msg == '성공') {
-                    // console.log(result)                   
-                    dispatch(login(result.data))
-                    return                   
-                }                      
-            }).catch( err => {
-                // console.log(err)
-                dispatch(logout())
+                
+                if(result.data.msg == 'success') {
+                    dispatch(SET_LOGIN(result.data.nickName))
+                } 
+                
+            }).catch( err => {                
+                router.push('/notaccess')                        
+                dispatch(SET_LOGOUT(null))
             })
                
         },[])
@@ -35,5 +36,3 @@ function SuccessLogin() {
         <></>
     )
 }
-
-export default SuccessLogin;

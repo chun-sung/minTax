@@ -1,7 +1,22 @@
+'use client'
+import { useEffect } from "react";
 import PageTop from "../components/PageTop";
 import Seo from "../components/Seo";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 export default function NotAccess () {
+
+    let user = useSelector(state=>state.user)
+    const router = useRouter()
+
+    // console.log(user.id)
+
+    // useEffect(() =>{
+    //     setTimeout(() => {
+    //         user.id !== null ? router.push("/") : null
+    //     },1000)
+    // },[user])
 
     return <>
     <Seo title="NotAccess | MinTAX" />

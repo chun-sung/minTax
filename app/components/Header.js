@@ -6,6 +6,8 @@ import Rsidebar from "./Rsidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
+import axios from "axios";
+import SuccessLogin from "./SuccessLogin";
 
 export default function Header() {
 
@@ -19,8 +21,9 @@ export default function Header() {
     const router = useRouter();
     
     return <>        
-        {/* Seo */}
+        {/* Seo */}        
         <Seo title='Home | MTAX'/>
+        <SuccessLogin />
 
         {/* 모달 효과 */}
         <div className={ menu == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>setMenu(false)}></div>        
@@ -35,8 +38,17 @@ export default function Header() {
                         { user.id !== null ?
                             <span className="logOutBtn font-bold border-[1px] border-red-200 rounded-xl hover:bg-red-300 hover:text-white bg-white  absolute px-3 text-red-400 right-[-65px] lg:right-[-80px] top-[-1px] lg:top-[-2px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
-                                    router.push('/')
-                                    dispatch(SET_LOGOUT(null))
+                                    axios({
+                                        url:"https://min-tax-8h5x.vercel.app/api/logout",
+                                        method: "POST",
+                                        withCredentials: true,
+                                    }).then((res) => {
+                                        if(res.data.msg == 'success') {
+                                            dispatch(SET_LOGOUT(null))
+                                            console.log('로그아웃 성공')
+                                            router.push('/')
+                                        }
+                                    })
                                 }
                             }}>logout</span>
                             : <span className="logOutBtn font-bold absolute border-[1px] border-red-200 rounded-xl hover:bg-red-300 px-3 text-red-400 right-[-100px] lg:right-[-70px] top-[-20px] lg:top-[-20px] hover:text-white cursor-pointer" onClick={()=> {
@@ -119,7 +131,7 @@ export default function Header() {
                         }
                         let user = {user_id, password}
 
-                        fetch('https://min-tax-8h5x.vercel.app/api/login', {
+                        fetch('http://localhost:3000/api/login', {
                             method: 'POST',
                             body: JSON.stringify(user)
                         })

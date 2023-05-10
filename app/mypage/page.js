@@ -1,8 +1,9 @@
 'use client'
 import { useSelector } from "react-redux";
-import LoginCheck from "../components/LoginCheck";
+// import LoginCheck from "../components/LoginCheck";
 import PageTop from "../components/PageTop";
 import Seo from "../components/Seo";
+import SuccessLogin from "../components/SuccessLogin";
 
 export default function Himoney() {
 
@@ -10,7 +11,8 @@ export default function Himoney() {
     const { user }= useSelector(state => state.user);    
 
     return <>
-        <LoginCheck />
+        {/* <LoginCheck /> */}
+        <SuccessLogin />
         <Seo title='MyPage | MTAX'/>      
         <PageTop />  
         <h1 className="text-center mt-10 text-2xl text-red-500 font-extrabold">MyPage</h1>

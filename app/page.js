@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import Consulting from "./components/Consulting";
 import PageTop from "./components/PageTop";
 import Seo from "./components/Seo";
+import SuccessLogin from "./components/SuccessLogin";
 
 
 export default function Home() {
@@ -68,7 +69,7 @@ export default function Home() {
 
 
   return (
-    <div className="nexon start2">
+    <div className="nexon start2">      
         <PageTop />        
         <Seo title='Home | MinTAX' />   
         {/* 메인 이미지 */}
