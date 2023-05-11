@@ -45,7 +45,7 @@ export default function Consulting() {
 
     {/* 상담 신청 패널 */}
     { consulting == true ? 
-        <div className="absolute border-[#031D4A] border-8 bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-64 shadow-2xl z-10">
+        <div className="absolute border-[#031D4A] border-[0px]] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-64 shadow-2xl z-10">
             <div className="text-center">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">문의사항</span><br /><br />
@@ -102,7 +102,7 @@ export default function Consulting() {
 
     {/* 회원 가입 패널 */}
     { member == true ? 
-        <div className="absolute border-[#031D4A] border-8 bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
+        <div className="absolute border-[#031D4A] border-[0px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
             <div className="text-center">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">회원가입</span><br /><br />
