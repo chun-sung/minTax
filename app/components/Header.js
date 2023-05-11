@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import SuccessLogin from "./SuccessLogin";
+import SuccessLogin from "./SuccessState";
 
 export default function Header() {
 
@@ -24,7 +24,6 @@ export default function Header() {
         {/* Seo */}        
         <Seo title='Home | MTAX'/>
         <SuccessLogin />
-
         {/* 모달 효과 */}
         <div className={ menu == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>setMenu(false)}></div>        
         <div className={ user.login == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_LOGIN_WINDOW(false))}></div>        
@@ -36,7 +35,7 @@ export default function Header() {
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
                     <div className="relative inline-block text-[12px] lg:text-[16px]  ml-[-30px] top-[-0px] lg:top-[3px] text-neutral-400">{user.id}
                         { user.id !== null ?
-                            <span className="logOutBtn font-bold border-[1px] border-red-200 rounded-xl hover:bg-red-300 hover:text-white bg-white  absolute px-3 text-red-400 right-[-65px] lg:right-[-80px] top-[-1px] lg:top-[-2px]  cursor-pointer" onClick={()=> {
+                            <span className="logOutBtn font-bold border-[2px] border-red-200 rounded-xl hover:bg-red-300 hover:text-white bg-white  absolute px-3 py-1 lg:py-0.5 text-red-400 right-[-70px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
                                     axios({
                                         url:"https://min-tax-8h5x.vercel.app/api/logout",
@@ -45,16 +44,15 @@ export default function Header() {
                                     }).then((res) => {
                                         if(res.data.msg == 'success') {
                                             dispatch(SET_LOGOUT(null))
-                                            console.log('로그아웃 성공')
+                                            // console.log('로그아웃 성공')
                                             router.push('/')
                                         }
                                     })
                                 }
                             }}>logout</span>
-                            : <span className="logOutBtn font-bold absolute border-[1px] border-red-200 rounded-xl hover:bg-red-300 px-3 text-red-400 right-[-100px] lg:right-[-70px] top-[-20px] lg:top-[-20px] hover:text-white cursor-pointer" onClick={()=> {
+                            : <span className="logOutBtn font-bold absolute border-[2px] border-red-300 rounded-xl text-white bg-red-300  hover:bg-white px-3 lg:px-5  py-1 lg:py-0.5 hover:text-red-400 right-[-80px] lg:right-[-70px] top-[-25px] lg:top-[-px] cursor-pointer" onClick={()=> {
                                 // signIn()
-                               dispatch(SET_LOGIN_WINDOW(true))                         
-                            
+                               dispatch(SET_LOGIN_WINDOW(true))                            
                             }}>login</span>
                             
                         }
@@ -143,6 +141,7 @@ export default function Header() {
                             if(data.msg == 'success') {
 
                                 // alert('로그인 완료!')                                   
+                                router.push('/')
                                 dispatch(SET_LOGIN(data.nickName))
                                 dispatch(SET_LOGIN_WINDOW(false))
                             } else if(data.msg == 'pw_fail') {

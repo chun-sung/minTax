@@ -1,8 +1,8 @@
 'use client'
 import axios from "axios";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { SET_LOGIN, SET_LOGIN_WINDOW } from "../Redux/reducers/userSlice";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_LOGIN, SET_LOGOUT } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 
 // import { login, logout } from "../store/user";
@@ -19,17 +19,15 @@ export default function SuccessLogin() {
                 method: "GET",
                 withCredentials: true,
             })
-            .then((result) => {                
+            .then((result) => {
+                
                 if(result.data.msg == 'success') {
                     dispatch(SET_LOGIN(result.data.nickName))
                 } else {
-                    // router.push('/notaccess')                        
-                    // dispatch(SET_LOGIN_WINDOW(true))
+                    dispatch(SET_LOGOUT(null))
                 }
                 
             }).catch( err => {                
-                router.push('/notaccess')
-                dispatch(SET_LOGIN_WINDOW(true))
                 console.log(err)
             })
                

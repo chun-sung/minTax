@@ -1,37 +1,38 @@
 const { pool } = require('../../../DB/db');
 import jwt from 'jsonwebtoken'
 import { cookies } from 'next/dist/client/components/headers';
+import { useRouter } from 'next/navigation';
 
 // SuccessLogin  (로그인 검증)
 export async function GET(req) {
-
+    
     try {
-        let JWT_ACCESS_SECRET='springstar74'              
-  
-        const token = cookies().get('accessToken');
-        const data = jwt.verify( token.value, JWT_ACCESS_SECRET);
 
-        // console.log('데이터',data);                                   // { nickName: 'springstar', user_id: 'springstar@daum.net' . . .}
+        // if(cookies().get('accessToken') !== ''){   // 엑세스 토큰 값 체크 안됨
+            let JWT_ACCESS_SECRET='springstar74'                
 
+            const token = cookies().get('accessToken');
+            const data = jwt.verify( token.value, JWT_ACCESS_SECRET);
+            // console.log('데이터',data);                                   // { nickName: 'springstar', user_id: 'springstar@daum.net' . . .}
 
+            // 위 토큰 검증 실패하면 아래 코드 실행 안됨
+            const rows = await pool.query(`SELECT * FROM members WHERE user_id='${data.user_id}' `);   
+            let result = Object.values(JSON.parse(JSON.stringify(rows)));             //  RowDataPacket 을 data (배열에 담긴 객체)로 최종 처리   
 
-        // 위 토큰 검증 실패하면 아래 코드 실행 안됨
-        const rows = await pool.query(`SELECT * FROM members WHERE user_id='${data.user_id}' `);   
-        let result = Object.values(JSON.parse(JSON.stringify(rows)));             //  RowDataPacket 을 data (배열에 담긴 객체)로 최종 처리   
+            let {password, ...others } = result[0];        // 패스워드 분리
+            let result2 = { msg:'success', ...others}      // msg 정보 추가   
 
-        let {password, ...others } = result[0];        // 패스워드 분리
-        let result2 = { msg:'success', ...others}      // msg 정보 추가   
+            if(data.user_id === result[0].user_id) {                       
+            
+                return new Response(JSON.stringify(result2))   
+            } else {
+                return new Response(JSON.stringify({msg: 'jwt_fail'}))   
+            }
 
-        if(data.user_id === result[0].user_id) {                       
-           
-            return new Response(JSON.stringify(result2))   
-        } else {
-            return new Response(JSON.stringify({msg: 'jwt_fail'}))   
-
-        }
-
-        // else 문은 필요하지 않다. jwt토큰이 맞지 않으면 에러 발생한다.              
-        return 
+            // else 문은 필요하지 않다. jwt토큰이 맞지 않으면 에러 발생한다.              
+            return 
+        // } 
+        return new Response(JSON.stringify({msg: 'jwt_fail'}))   
 
     } catch (err) {
         console.log(err)

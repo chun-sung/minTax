@@ -4,7 +4,7 @@ import { cookies } from 'next/dist/client/components/headers';
 export async function POST(req) {
 
     try {
-        cookies().set('accessToken','' )    
+        cookies().set('accessToken','' )
         return new Response(JSON.stringify({ msg:'success'}))
         
     } catch (err) {
