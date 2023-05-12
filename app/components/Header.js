@@ -20,6 +20,44 @@ export default function Header() {
     const dispatch = useDispatch();
     const router = useRouter();
     
+    // 로그인 함수
+    function loginEnter() {
+        if(user_id == '') {
+            alert('ID를 입력하세요')
+            return 
+        } else if(password == '') {
+            alert('패스워드를 입력하세요')
+            return
+        }
+        let user = {user_id, password}
+
+        fetch('https://min-tax-8h5x.vercel.app/api/login', {
+            method: 'POST',
+            body: JSON.stringify(user)
+        })
+        .then((res) => {
+        return res.json();
+        })
+        .then(data => {
+            // console.log(data)
+            if(data.msg == 'success') {
+
+                // alert('로그인 완료!')                                   
+                router.push('/mypage')
+                dispatch(SET_LOGIN(data.nickName))
+                dispatch(SET_LOGIN_WINDOW(false))
+            } else if(data.msg == 'pw_fail') {
+
+                alert('비밀번호가 틀립니다.')
+            } else if( data.msg == 'id_fail') {
+
+                alert('존재하지 않는 회원 ID 입니다.')
+            }
+        })
+        .catch((err) => console.log(err))
+    }
+
+
     return <>        
         {/* Seo */}        
         <Seo title='Home | MTAX'/>
@@ -116,46 +154,13 @@ export default function Header() {
                         </div>
                         <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-4px]">
                             <label htmlFor="name" className="leading-7 text-sm text-gray-600 mr-2">PW </label>
-                            <input type="password" id="name" name="password" className="w-56 bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setPassword(e.target.value)}/>
+                            <input type="password" id="name" name="password" className="w-56 bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onKeyUp={()=>{ window.event.keyCode === 13 ? loginEnter() : null }} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                     </form>
                 </div>
                 <div className="mt-2 ml-6 text-center">
-                    <button className="p-2 px-5 rounded-sm mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
+                    <button className="p-2 px-5 rounded-sm mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> { return loginEnter()
 
-                        if(user_id == '') {
-                            alert('ID를 입력하세요')
-                            return 
-                        } else if(password == '') {
-                            alert('패스워드를 입력하세요')
-                            return
-                        }
-                        let user = {user_id, password}
-
-                        fetch('https://min-tax-8h5x.vercel.app/api/login', {
-                            method: 'POST',
-                            body: JSON.stringify(user)
-                        })
-                        .then((res) => {
-                           return res.json();
-                        })
-                        .then(data => {
-                            // console.log(data)
-                            if(data.msg == 'success') {
-
-                                // alert('로그인 완료!')                                   
-                                router.push('/mypage')
-                                dispatch(SET_LOGIN(data.nickName))
-                                dispatch(SET_LOGIN_WINDOW(false))
-                            } else if(data.msg == 'pw_fail') {
-
-                                alert('비밀번호가 틀립니다.')
-                            } else if( data.msg == 'id_fail') {
-
-                                alert('존재하지 않는 회원 ID 입니다.')
-                            }
-                        })
-                        .catch((err) => console.log(err))
                         
                     }}>확인</button>
 
