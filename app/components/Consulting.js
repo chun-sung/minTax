@@ -84,7 +84,7 @@ export default function Consulting() {
                     alert('상담 결과는 Mypage에서 확인할 수 있습니다. (3일 이내 회신)')
                     setTitle('')
                     setContent('')
-                    setConsulting(false)
+                    dispatch(SET_CONSULTING_PANEL(false))
                     
                 }}>확인</button>
                 <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
@@ -141,7 +141,7 @@ export default function Consulting() {
                         nickName,
                         password,
                     }
-                    fetch('https://min-tax-8h5x.vercel.app/api/member', {
+                    fetch('http://localhost:3000/api/member', {
                         method: 'POST',
                         body: JSON.stringify(user)
                     })
@@ -151,7 +151,7 @@ export default function Consulting() {
                     .then(data => {
                         if(data.msg == 'success') {
                             alert('회원 가입이 완료되었습니다')   
-                            setMember(false)                            
+                            dispatch(SET_MEMBER_PANEL(false))                            
                         } else if(data.msg == 'id_fail') {
                             alert('이미 사용중인 아이디 입니다.')
                         }
