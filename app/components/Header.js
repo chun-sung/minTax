@@ -4,7 +4,7 @@ import Seo from "./Seo"
 import { useState } from "react"
 import Rsidebar from "./Rsidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW } from "../Redux/reducers/userSlice";
+import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_PANEL } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessLogin from "./SuccessState";
@@ -13,7 +13,7 @@ export default function Header() {
 
     const { user } = useSelector(state => state.user);
     
-    const [menu, setMenu] = useState(false);
+    const [menu, setMenu] = useState(false);    
     const [user_id, setUserId] = useState('')
     const [password, setPassword] = useState('')
     
@@ -52,7 +52,10 @@ export default function Header() {
                             }}>logout</span>
                             : <span className="logOutBtn font-bold absolute border-[2px] border-red-300 rounded-xl text-white bg-red-300  hover:bg-white px-3 lg:px-5  py-1 lg:py-0.5 hover:text-red-400 right-[-80px] lg:right-[-70px] top-[-25px] lg:top-[-px] cursor-pointer" onClick={()=> {
                                 // signIn()
-                               dispatch(SET_LOGIN_WINDOW(true))                            
+                               dispatch(SET_LOGIN_WINDOW(true)) 
+                               dispatch(SET_MEMBER_PANEL(false))   
+                               dispatch(SET_CONSULTING_PANEL(false))   
+                               setMenu(false)                                                       
                             }}>login</span>
                             
                         }
@@ -61,7 +64,7 @@ export default function Header() {
 
 
                 {/* 모바일 메뉴 버튼 */}
-                <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{setMenu(!menu)}}>
+                <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{setMenu(!menu);dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
                     <img className="w-[40px] z-40" src="/hamburger.svg"/>
                 </div>     
             </div>    
@@ -83,7 +86,7 @@ export default function Header() {
                     <hr className="p-3 lg:hidden" />
                     <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/susu' onClick={()=>{setMenu(false)}}>수수료안내</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/about' onClick={()=>{setMenu(false)}}>MinTAX소개</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/board' onClick={()=>{setMenu(false)}}>게시판</Link></p>
                     <hr className="p-3 lg:hidden"/>
                     { user.id !== null ?
                         <>
@@ -100,7 +103,7 @@ export default function Header() {
         {
         user.login == true ? 
             <div className={user.login !== true ? null 
-                :  "absolute border-[#031D4A] border-[0px] bg-gray-100  w-full lg:w-[420px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-64 shadow-2xl z-10"
+                :  "absolute border-stone-800 border-[1px] bg-gray-100  w-full lg:w-[420px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-64 shadow-2xl z-10"
                 }>
                 <div className="text-center">                   
                     <span className="text-xl font-bold">Login</span><br /><br />
@@ -141,7 +144,7 @@ export default function Header() {
                             if(data.msg == 'success') {
 
                                 // alert('로그인 완료!')                                   
-                                router.push('/')
+                                router.push('/mypage')
                                 dispatch(SET_LOGIN(data.nickName))
                                 dispatch(SET_LOGIN_WINDOW(false))
                             } else if(data.msg == 'pw_fail') {

@@ -1,7 +1,9 @@
 import { Providers } from './Redux/provider'
 import Footer from './components/Footer'
 import Header from './components/Header'
+import ReactQueryProvider from './components/ReactQueryProvider'
 import './globals.css'
+
 // import { Inter } from 'next/font/google'
 
 // const inter = Inter({ subsets: ['latin'] })
@@ -18,9 +20,11 @@ export default function RootLayout({ children }) {
       <link rel="manifest" href="/manifest.json" />
       <body className='relative'>
         <Providers>
-          <Header />
-            {children}
-          <Footer />
+          <ReactQueryProvider>
+            <Header />
+              {children}
+            <Footer />
+          </ReactQueryProvider>
         </Providers>
       </body>
     </html>

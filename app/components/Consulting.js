@@ -2,22 +2,19 @@
 
 import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { SET_LOGIN, SET_LOGOUT, SET_LOGIN_WINDOW } from "../Redux/reducers/userSlice"
+import { SET_MEMBER_PANEL, SET_CONSULTING_PANEL } from "../Redux/reducers/userSlice"
 
 export default function Consulting() {
     
     const { user} = useSelector((state) => state.user)
     
-    const [login, setLogin] = useState(false)
-    const [consulting, setConsulting] = useState(false)
-    const [member, setMember] = useState(false)
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
-
     const [user_id, setUserId] = useState('')
     const [nickName, setNickName] = useState('')
     const [password, setPassword] = useState('')
     const [pwCheck, setPwCheck] = useState('')
+    
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
     
     const dispatch = useDispatch()
     
@@ -27,15 +24,14 @@ export default function Consulting() {
     {/*상담 신청 & 회원 가입 */}
     <div className="flex mt-10 w-full lg:w-[980px] m-auto lg:m-auto justify-center lg:justify-start mb-10">
         <p className="shadow-lg bg-blue-600 p-2 lg:p-4 w-[104px] lg:w-[120px] mr-0 lg:mr-0 text-neutral-100 lg:text-sm cursor-pointer hover:bg-red-400" onClick={()=>{
-           user.id !== null ? setConsulting(true) : alert('로그인 하시기 바랍니다.')
+           user.id !== null ? dispatch(SET_CONSULTING_PANEL(true)) : alert('로그인 하시기 바랍니다.')
         }}>상담신청</p>
         { user.id == null ?
             <p className="shadow-lg bg-gray-400 p-2 lg:p-4 w-[104px] lg:w-[120px] text-white text-sm cursor-pointer hover:bg-red-400" onClick={() => {
-                setMember(true)
-        
+                dispatch(SET_MEMBER_PANEL(true))
             }}>회원가입</p>        
             : <p className="shadow-lg bg-gray-400 p-2 lg:p-4 w-[220px] lg:w-[220px] text-white text-sm" onClick={() => {
-        
+                
             }}>궁금한 내용이 있으신가요?</p>     
         }
   
@@ -44,8 +40,8 @@ export default function Consulting() {
 
 
     {/* 상담 신청 패널 */}
-    { consulting == true ? 
-        <div className="absolute border-[#031D4A] border-[0px]] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-64 shadow-2xl z-10">
+    { user.member_consul == true ? 
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-64 shadow-2xl z-10">
             <div className="text-center">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">문의사항</span><br /><br />
@@ -91,7 +87,7 @@ export default function Consulting() {
                     setConsulting(false)
                     
                 }}>확인</button>
-                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> setConsulting(false)}>취소</button>
+                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null
@@ -101,8 +97,8 @@ export default function Consulting() {
 
 
     {/* 회원 가입 패널 */}
-    { member == true ? 
-        <div className="absolute border-[#031D4A] border-[0px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
+    { user.member_panel == true ? 
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
             <div className="text-center">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">회원가입</span><br /><br />
@@ -162,7 +158,7 @@ export default function Consulting() {
                     })
                     
                 }}>확인</button>
-                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> setMember(false)}>취소</button>
+                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null   
