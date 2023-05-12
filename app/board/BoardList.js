@@ -80,7 +80,7 @@ export default function BoardList() {
                                             <td className="lg:text-md">
                                                 <span className="text-[12px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
                                             </td>
-                                            <td className="">1
+                                            <td className="">
                                                 <span className="text-[12px] lg:text-[16px]">{regist_userid}</span>
                                             </td>
                                         </tr>
