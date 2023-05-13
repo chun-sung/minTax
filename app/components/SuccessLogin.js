@@ -15,7 +15,7 @@ export default function SuccessLogin() {
 
     useEffect(()=> {           
             axios({
-                url: "http://localhost:3000/api/login/success",
+                url: "https://min-tax-8h5x.vercel.app/login/success",
                 method: "GET",
                 withCredentials: true,
             })
