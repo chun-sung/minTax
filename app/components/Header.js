@@ -30,7 +30,7 @@ export default function Header() {
         }
         let user = {user_id, password}
 
-        fetch('http://localhost:3000/api/login', {
+        fetch('https://min-tax-8h5x.vercel.app/api/login', {
             method: 'POST',
             body: JSON.stringify(user)
         })
@@ -76,7 +76,7 @@ export default function Header() {
                             <span className="logOutBtn font-bold border-[1px] border-red-500 rounded-xl hover:bg-red-400 hover:text-white bg-white  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
                                     axios({
-                                        url:"http://localhost:3000/api/logout",
+                                        url:"https://min-tax-8h5x.vercel.app/api/logout",
                                         method: "POST",
                                         withCredentials: true,
                                     }).then((res) => {
