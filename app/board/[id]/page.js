@@ -10,6 +10,8 @@ import dayjs from "dayjs"             // 날짜 포맷
 export default function Detail() {
 
     const [data, setData] = useState({});
+    const [comment, setComment] = useState('');
+    const [commentBtn, setCommentBtn] = useState(false);
 
     let id = useParams();
     const router = useRouter();
@@ -46,17 +48,59 @@ export default function Detail() {
                             <th width="20%" className="">{data?.regist_userid}</th>
                         </tr>
                     </thead>
-                    <tbody className="text-sm lg:text-md">                            
+                    {/* <tbody className="text-sm lg:text-md">                            
                         <tr className="border-b border-1 border-slate-200" >
                             <td  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
                                 {data?.contents}
                             </td>          
                         </tr>                            
-                    </tbody>
+                    </tbody> */}
+                    {/* <tbody className="text-sm lg:text-md">                             */}
+                    {/* </tbody> */}
                 </table>
-                <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
-                <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm ">댓글</button>
-                </div>
+                <div className="border-b lg:border border-1 border-slate-200 p-1 w-full lg:w-[900px] m-auto bg-zinc-50">
+                    <span  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
+                        <br/>{data?.contents}<br/><br/>
+                    </span>          
+                </div>      
+                  <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
+                      setCommentBtn(!commentBtn)
+                    }}>댓글</button>
+                  </div>
+                <div className="relative bg-zinc-0 mt-0 py-3 w-full lg:w-[900px] m-auto">
+                  <div className="text-center  text-sm mb-3">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl"> 혁명은 힘들어요~!</span>
+                    <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">홍길동</span>
+                    <span className="text-[12px] lg:text-[12px]">04.22일</span>
+                  </div>
+                  <div className="text-center text-sm mb-3">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl"> 에이 마이크로소프트보다 구글이 더 좋은데.. 우띵 우리 다른 거해요</span>
+                    <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">이순신</span>
+                    <span className="text-[10px] lg:text-[12px] ">04.20일</span>
+                  </div>
+                  <div className="text-center text-sm mb-3">
+                    <span className="inline-block bg-orange-300  p-1 lg:p-2 px-4 rounded-xl"> 구글이 한건 할거 같아요</span>
+                    <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">구글짱</span>
+                    <span className="text-[10px]  lg:text-[12px] ">04.19일</span>
+                  </div>
+                  <div className="text-center text-sm mb-3">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl">기다려 보세요!!</span>
+                    <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">빌게이츠</span>
+                    <span className="text-[10px]  lg:text-[12px] ">04.16일</span>
+                  </div>
+                  { commentBtn == true ?
+                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] left-[-28px] lg:left-[40px] z-10 bg-stone-400 p-2 shadow-md rounded-md w-[290px] lg:w-[800px] m-auto">
+                      <input className="w-full p-1 rounded" onChange={(e) => setComment(e.target.value)} type="text" />
+                      <div className="text-right">
+                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2">확인</button>
+                        <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>
+                      </div>
+                    </div>
+                    :null
+                  }
+                </div>                      
+
             </div>
         </div>
 

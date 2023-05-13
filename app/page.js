@@ -47,7 +47,6 @@ export default function Home() {
     installPrompt = null;
   };
 
-
   return (
     <div className="nexon start2">      
         <PageTop />        

@@ -61,7 +61,7 @@ export default function BoardList() {
                             {
                                 posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, regist_userid }, i) => {
                                     return (
-                                        <tr className="border-b border-1 border-slate-200 hover:bg-gray-200" key={i} onClick={()=> {}}>
+                                        <tr className="border-b border-1 border-slate-200 hover:bg-gray-50" key={i} onClick={()=> {}}>
                                             <td className="p-1.5 lg:p-3">
                                                 {offset + i + 1 }
                                             </td>

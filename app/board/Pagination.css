@@ -21,8 +21,8 @@
     font-size: 1rem;
     border-radius: 15px;
     margin-left: 10px;
-    background-color: #f7eff85d;
-    border: 1px solid rgb(248, 229, 248);
+    background-color: #ffffff;
+    border: 1px solid rgb(146, 146, 146);
   }
 
   ul.pagination li:first-child{
@@ -46,7 +46,7 @@
   }
 
   ul.pagination li.active {
-    background-color: #66a6df;
+    background-color: #97c9f5;
   }
   
   ul.pagination li a:hover,

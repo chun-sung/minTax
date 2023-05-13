@@ -1,6 +1,6 @@
 import { useRouter } from "next/navigation"
 import { useDispatch, useSelector } from "react-redux";
-import { SET_LOGIN_WINDOW, SET_MEMBER_PANEL, SET_MENU_BTN } from "../Redux/reducers/userSlice";
+import { SET_CONSULTING_PANEL, SET_LOGIN_WINDOW, SET_MEMBER_PANEL, SET_MENU_BTN } from "../Redux/reducers/userSlice";
 
 export default function Rsidebar() {
 
@@ -15,6 +15,7 @@ export default function Rsidebar() {
                 dispatch(SET_LOGIN_WINDOW(false))
                 dispatch(SET_MEMBER_PANEL(false))
                 dispatch(SET_LOGIN_WINDOW(false))
+                dispatch(SET_CONSULTING_PANEL(false))
             }}/>
             <img className="hover:bg-red-300 hover:scale-110 cursor-pointer w-9 lg:w-14 bg-blue-300 border-2 rounded-full p-1 lg:p-2 mb-3" src='/telephoen.png' onClick={()=>{
                 router.push('/smart')
