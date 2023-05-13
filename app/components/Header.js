@@ -152,11 +152,11 @@ export default function Header() {
                     <form>
                         <div className="relative sm:mb-0 flex-grow w-full mb-2">
                             <label htmlFor="full-name" className="leading-7 text-sm text-gray-600 mr-2">ID </label>
-                            <input type="text" id="full-name" name="user_id" className="w-56 bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setUserId(e.target.value)} />
+                            <input type="text" id="full-name" name="user_id" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-md outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setUserId(e.target.value)} />
                         </div>
                         <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-4px]">
                             <label htmlFor="name" className="leading-7 text-sm text-gray-600 mr-2">PW </label>
-                            <input type="password" id="name" name="password" className="w-56 bg-gray-800 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onKeyUp={()=>{ window.event.keyCode === 13 ? loginEnter() : null }} onChange={(e) => setPassword(e.target.value)}/>
+                            <input type="password" id="name" name="password" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onKeyUp={()=>{ window.event.keyCode === 13 ? loginEnter() : null }} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                     </form>
                 </div>

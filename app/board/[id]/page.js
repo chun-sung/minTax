@@ -35,9 +35,9 @@ export default function Detail() {
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-[600px] lg:h-[600px] m-auto">
                 <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-gray-500 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm ">수정</button>
-                    <button className="shadow-md inline-block p-1 px-3 bg-red-500 hover:bg-red-600 text-white rounded mr-1 mb-0 text-sm ">삭제</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm ">수정</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white rounded mr-1 mb-0 text-sm ">삭제</button>
                 </div>
                 <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
                     <thead className="">
@@ -64,34 +64,34 @@ export default function Detail() {
                     </span>          
                 </div>      
                   <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
                       setCommentBtn(!commentBtn)
                     }}>댓글</button>
                   </div>
                 <div className="relative bg-zinc-0 mt-0 py-3 w-full lg:w-[900px] m-auto">
-                  <div className="text-center  text-sm mb-3">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl"> 혁명은 힘들어요~!</span>
+                  <div className="text-center  text-sm mb-2">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 혁명은 힘들어요~!</span>
                     <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">홍길동</span>
                     <span className="text-[12px] lg:text-[12px]">04.22일</span>
                   </div>
-                  <div className="text-center text-sm mb-3">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl"> 에이 마이크로소프트보다 구글이 더 좋은데.. 우띵 우리 다른 거해요</span>
+                  <div className="text-center text-sm mb-2">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 에이 마이크로소프트보다 구글이 더 좋은데.. 우띵 우리 다른 거해요</span>
                     <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">이순신</span>
                     <span className="text-[10px] lg:text-[12px] ">04.20일</span>
                   </div>
-                  <div className="text-center text-sm mb-3">
-                    <span className="inline-block bg-orange-300  p-1 lg:p-2 px-4 rounded-xl"> 구글이 한건 할거 같아요</span>
+                  <div className="text-center text-sm mb-2">
+                    <span className="inline-block bg-orange-300  p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 구글이 한건 할거 같아요</span>
                     <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">구글짱</span>
                     <span className="text-[10px]  lg:text-[12px] ">04.19일</span>
                   </div>
-                  <div className="text-center text-sm mb-3">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-2 px-4 rounded-xl">기다려 보세요!!</span>
+                  <div className="text-center text-sm mb-2">
+                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl">기다려 보세요!!</span>
                     <span className="text-[10px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">빌게이츠</span>
                     <span className="text-[10px]  lg:text-[12px] ">04.16일</span>
                   </div>
                   { commentBtn == true ?
-                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] left-[-28px] lg:left-[40px] z-10 bg-stone-400 p-2 shadow-md rounded-md w-[290px] lg:w-[800px] m-auto">
-                      <input className="w-full p-1 rounded" onChange={(e) => setComment(e.target.value)} type="text" />
+                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] left-[-28px] lg:left-[40px] z-10 bg-white border-[1px] border-gray-300 p-2 shadow-md rounded-md w-[290px] lg:w-[800px] m-auto">
+                      <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-200 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
                       <div className="text-right">
                         <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2">확인</button>
                         <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>

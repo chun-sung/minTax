@@ -42,8 +42,8 @@ export default function Create() {
                                 </tbody>
                 </table>
                 <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-gray-500 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>뒤로</button>
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm ">등록</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>뒤로</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm ">등록</button>
                 </div>
                 
                 </div>

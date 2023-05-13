@@ -44,7 +44,7 @@ export default function BoardList() {
         <div className="boardList__section mt-8 bg-neutral-00 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="boardList__wrapper h-full lg:h-[600px]">
                 <div className="text-right mb-1 lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-1 text-sm"onClick={()=>router.push('/board/create')}>작성</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-1 text-sm"onClick={()=>router.push('/board/create')}>작성</button>
                 </div>
                 <div className="text-center m-auto w-full lg:w-[900px]">
                     <table className="w-full h-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0">
