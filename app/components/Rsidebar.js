@@ -14,15 +14,18 @@ export default function Rsidebar() {
                 dispatch(SET_MENU_BTN(false))
                 dispatch(SET_LOGIN_WINDOW(false))
                 dispatch(SET_MEMBER_PANEL(false))
+                dispatch(SET_LOGIN_WINDOW(false))
             }}/>
             <img className="hover:bg-red-300 hover:scale-110 cursor-pointer w-9 lg:w-14 bg-blue-300 border-2 rounded-full p-1 lg:p-2 mb-3" src='/telephoen.png' onClick={()=>{
                 router.push('/smart')
                 dispatch(SET_MENU_BTN(false))
                 dispatch(SET_LOGIN_WINDOW(false))
+                dispatch(SET_LOGIN_WINDOW(false))
             }}/>
             <img className="hover:bg-red-300 hover:scale-110 cursor-pointer w-9 lg:w-14 bg-blue-300 border-2 rounded-full p-1 lg:p-2 mb-3" src='/Alarm.png'onClick={()=>{
                 router.push('/himoney')
                 dispatch(SET_MENU_BTN(false))
+                dispatch(SET_LOGIN_WINDOW(false))
                 dispatch(SET_LOGIN_WINDOW(false))
             }}/>
             <img className="hover:bg-red-300 hover:scale-110 cursor-pointer w-9 lg:w-14 bg-blue-300 border-2 rounded-full p-1 lg:p-2 mb-3" src='/Account circle.png' onClick={()=>{
@@ -35,6 +38,6 @@ export default function Rsidebar() {
                     behavior: 'smooth'
                 }); 
             }}/>
-        </div> 
+        </div>
     </>
 }
