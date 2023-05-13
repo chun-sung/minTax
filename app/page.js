@@ -3,28 +3,8 @@ import { useEffect } from "react";
 import Consulting from "./components/Consulting";
 import PageTop from "./components/PageTop";
 import Seo from "./components/Seo";
-import SuccessLogin from "./components/SuccessLogin";
-
 
 export default function Home() {
-
-  // pwa 설치 코드 I (클릭시 installApp함수 호출후 설치 화면 팝업 됨)
-  // let deferredPrompt
- 
-  // window.addEventListener('beforeinstallprompt', event => {
-  //   event.preventDefault()
-  //   deferredPrompt = event
-  // }) 
-
-  // function installApp(){
-  //   if(!deferredPrompt) {
-  //       // alert(`이미 앱이 설치되어 있거나 앱을 설치할 수 없는 환경입니다.`)
-  //       alert(`웹브라우저 새로고침후 로딩이 완료된 후 클릭해 보세요.`)
-  //       return
-  //   }
-  //   deferredPrompt.prompt()
-  //   // BeforeInstallPromptEvent.prompt()        
-  // }
   
 // pwa 설치 코드 II
   let installPrompt = null;

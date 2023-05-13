@@ -4,7 +4,7 @@ import Seo from "./Seo"
 import { useState } from "react"
 import Rsidebar from "./Rsidebar";
 import { useDispatch, useSelector } from "react-redux";
-import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_PANEL } from "../Redux/reducers/userSlice";
+import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_PANEL,SET_MENU_BTN } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessLogin from "./SuccessState";
@@ -13,7 +13,6 @@ export default function Header() {
 
     const { user } = useSelector(state => state.user);
     
-    const [menu, setMenu] = useState(false);    
     const [user_id, setUserId] = useState('')
     const [password, setPassword] = useState('')
     
@@ -31,7 +30,7 @@ export default function Header() {
         }
         let user = {user_id, password}
 
-        fetch('https://min-tax-8h5x.vercel.app/api/login', { 
+        fetch('http://localhost:3000/api/login', {
             method: 'POST',
             body: JSON.stringify(user)
         })
@@ -63,28 +62,28 @@ export default function Header() {
         <Seo title='Home | MTAX'/>
         <SuccessLogin />
         {/* 모달 효과 */}
-        <div className={ menu == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>setMenu(false)}></div>        
+        <div className={ user.menu == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_MENU_BTN(false))}></div>        
         <div className={ user.login == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_LOGIN_WINDOW(false))}></div>        
 
         {/* 헤더 */}
         {/* 로그인 & 로그아웃 Btn */}
         <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A]">    
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
-                <Link href='/' onClick={()=>{setMenu(false)}}><img className="w-20 lg:w-32" src="/logo.svg" /></Link>
+                <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}><img className="w-20 lg:w-32" src="/logo.svg" /></Link>
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
                     <div className="relative inline-block text-[12px] lg:text-[16px] ml-[-15px] lg:ml-[-30px] top-[-0px] lg:top-[3px] text-neutral-500">{user.id}
                         { user.id !== null ?
                             <span className="logOutBtn font-bold border-[1px] border-red-500 rounded-xl hover:bg-red-400 hover:text-white bg-white  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
                                     axios({
-                                        url:"https://min-tax-8h5x.vercel.app/api/logout",
+                                        url:"http://localhost:3000/api/logout",
                                         method: "POST",
                                         withCredentials: true,
                                     }).then((res) => {
                                         if(res.data.msg == 'success') {
                                             dispatch(SET_LOGOUT(null));
                                             dispatch(SET_CONSULTING_PANEL(false));
-                                            setMenu(false);
+                                            dispatch(SET_MENU_BTN(false));
                                             // console.log('로그아웃 성공')
                                             router.push('/')
                                         }
@@ -96,7 +95,7 @@ export default function Header() {
                                dispatch(SET_LOGIN_WINDOW(true)); 
                                dispatch(SET_MEMBER_PANEL(false));   
                                dispatch(SET_CONSULTING_PANEL(false));
-                               setMenu(false);
+                               dispatch(SET_MENU_BTN(false));
                             }}>login</span>
                             
                         }
@@ -105,33 +104,33 @@ export default function Header() {
 
 
                 {/* 모바일 메뉴 버튼 */}
-                <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{setMenu(!menu);dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
+                <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
                     <img className="w-[40px] z-40" src="/hamburger.svg"/>
                 </div>     
             </div>    
 
 
             {/* 네비게이션 */}
-            <nav className={menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
+            <nav className={user.menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
                     : `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100 z-20 rounded lg:rounded-none start end`}>
                 <div className="w-full lg:flex justify-between items-center gap-8 m-auto h-full lg:h-[61px] max-w-[1820px] pb-3 ">
                     <p className="text-black pt-3 lg:pb-0 lg:text-white  mt-3 mb-3 lg:mt-2  font-bold hover:text-blue-300 cursor-pointer"><Link href='/smart' onClick={()=> {
-                        setMenu(false)
+                        dispatch(SET_MENU_BTN(false))
                     }}>SMART 서비스</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/himoney' onClick={()=>{setMenu(false)}}>고소득자 플랜</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/himoney' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>고소득자 플랜</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/bubin' onClick={()=>{setMenu(false)}}>법인 컨설팅</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/bubin' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>법인 컨설팅</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/renew' onClick={()=>{setMenu(false)}}>세무상담</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/renew' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>세무상담</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/susu' onClick={()=>{setMenu(false)}}>수수료안내</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/susu' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>수수료안내</Link></p>
                     <hr className="p-3 lg:hidden" />
-                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/board' onClick={()=>{setMenu(false)}}>게시판</Link></p>
+                    <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/board' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>게시판</Link></p>
                     <hr className="p-3 lg:hidden"/>
                     { user.id !== null ?
                         <>
-                        <p className="text-red-400 lg:text-red-400 mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/mypage' onClick={()=>{setMenu(false)}}>MyPage</Link></p>
+                        <p className="text-red-400 lg:text-red-400 mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/mypage' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>MyPage</Link></p>
                         <hr className="p-3 lg:hidden"/>
                         </>
                         : null

@@ -34,29 +34,30 @@ export default function BoardList() {
     })   
     
         // useQuery 데이터 로딩중
-    if(isLoading) return <div className="text-center mt-10 p-2 bg-gray-200 w-36 rounded-lg m-auto">Loading...</div>
+    if(isLoading) return <div className="text-center mt-10 p-2 bg-red-200 text-white w-36 rounded-lg m-auto">Loading...</div>
 
         // useQuery 에러처리
     if(error) return <pre>{JSON.stringify(postQuery?.error)}</pre>
 
 
     return <>
-        <div className="boardList__section mt-8 bg-neutral-0 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
-            <div className="boardList__wrapper lg:h-[600px]">
+        <div className="boardList__section mt-8 bg-neutral-00 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
+            <div className="boardList__wrapper h-full lg:h-[600px]">
                 <div className="text-right mb-1 lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm"onClick={()=>router.push('/board/create')}>작성</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-1 text-sm"onClick={()=>router.push('/board/create')}>작성</button>
                 </div>
                 <div className="text-center m-auto w-full lg:w-[900px]">
-                    <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0">
+                    <table className="w-full h-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0">
                         <thead className="">
                             <tr className="text-sm  lg:text-[16px] lg:border-b border-2 bg-slate-300 h-10">
-                                <th width="10%">No</th>
-                                <th width="55%">제목</th>
-                                <th width="15%">작성일</th>
-                                <th width="20%">작성자</th>
+                                <th width="15%">No</th>
+                                <th width="50%">제목</th>
+                                <th width="10%">작성일</th>
+                                <th width="25%">작성자</th>
                             </tr>
                         </thead>
                         <tbody className="text-sm lg:text-[16px]">
+
                             {
                                 posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, regist_userid }, i) => {
                                     return (
@@ -85,6 +86,7 @@ export default function BoardList() {
                                         </tr>
                                 )})
                             }
+                            
                         </tbody>
                     </table>
             </div>

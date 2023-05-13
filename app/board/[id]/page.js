@@ -32,7 +32,7 @@ export default function Detail() {
 
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-[600px] lg:h-[600px] m-auto">
-                <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
+                <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-500 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm ">수정</button>
                     <button className="shadow-md inline-block p-1 px-3 bg-red-500 hover:bg-red-600 text-white rounded mr-1 mb-0 text-sm ">삭제</button>
@@ -55,7 +55,7 @@ export default function Detail() {
                     </tbody>
                 </table>
                 <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
-                <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white text-right rounded mt-1 mb-0 text-sm ">댓글</button>
+                <button className="shadow-md inline-block p-1 px-3 bg-blue-500 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm ">댓글</button>
                 </div>
             </div>
         </div>

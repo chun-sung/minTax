@@ -7,7 +7,8 @@ const userSlice = createSlice({
         user: { id: null,
             login: false,
             member_panel: false,
-            member_consul: false
+            member_consul: false,
+            menu: false           
         } ,    
     },
     reducers: {
@@ -28,11 +29,13 @@ const userSlice = createSlice({
         SET_CONSULTING_PANEL(state, action) {
             state.user.member_consul = action.payload
         },
-        
+        SET_MENU_BTN(state, action) {
+            state.user.menu = action.payload
+        }
 
     }
 })
 
-export const { SET_LOGIN, SET_LOGOUT, SET_LOGIN_WINDOW, SET_MEMBER_PANEL,SET_CONSULTING_PANEL } = userSlice.actions;
+export const { SET_LOGIN, SET_LOGOUT, SET_LOGIN_WINDOW, SET_MEMBER_PANEL,SET_CONSULTING_PANEL, SET_MENU_BTN } = userSlice.actions;
 export default userSlice.reducer;
 
