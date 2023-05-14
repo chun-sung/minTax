@@ -28,11 +28,11 @@ export default function Header() {
             alert('패스워드를 입력하세요')
             return
         }
-        let user = {user_id, password}
+        let userInfo = {user_id, password}
 
         fetch('https://min-tax-8h5x.vercel.app/api/login', {
             method: 'POST',
-            body: JSON.stringify(user)
+            body: JSON.stringify(userInfo)
         })
         .then((res) => {
         return res.json();
@@ -41,10 +41,10 @@ export default function Header() {
             // console.log(data)
             if(data.msg == 'success') {
 
-                // alert('로그인 완료!')                                   
-                router.push('/mypage')
-                dispatch(SET_LOGIN(data.nickName))
+                const { user_id, nickName } = data;
+                dispatch(SET_LOGIN({user_id, nickName}))
                 dispatch(SET_LOGIN_WINDOW(false))
+                router.push('/mypage')
             } else if(data.msg == 'pw_fail') {
 
                 alert('비밀번호가 틀립니다.')
@@ -71,8 +71,8 @@ export default function Header() {
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
                 <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}><img className="w-20 lg:w-32" src="/logo.svg" /></Link>
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
-                    <div className="relative inline-block text-[12px] lg:text-[16px] ml-[-15px] lg:ml-[-30px] top-[-0px] lg:top-[3px] text-neutral-500">{user.id}
-                        { user.id !== null ?
+                    <div className="relative inline-block text-[12px] lg:text-[16px] ml-[-15px] lg:ml-[-30px] top-[-5px] lg:top-[3px] text-neutral-500">{user.nickName}
+                        { user.user_id !== null ?
                             <span className="logOutBtn font-bold border-[1px] border-red-500 rounded-xl hover:bg-red-400 hover:text-white bg-white  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
                                     axios({

@@ -16,7 +16,7 @@ export default function Himoney() {
         <Seo title='MyPage | MTAX'/>      
         <PageTop />  
         <h1 className="text-center mt-10 text-2xl text-red-500 font-extrabold">MyPage</h1>
-        <h1 className="text-center mt-10 text-2xl font-semibold"><span className="text-blue-500">{user.id}</span> 님 Welcome!</h1>
+        <h1 className="text-center mt-10 text-2xl font-semibold"><span className="text-blue-500">{user.nickName}</span> 님 Welcome!</h1>
         <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-col text-center w-full mb-20">

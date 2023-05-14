@@ -22,7 +22,8 @@ export default function SuccessLogin() {
             .then((result) => {
                 
                 if(result.data.msg == 'success') {
-                    dispatch(SET_LOGIN(result.data.nickName))
+                    const {user_id, nickName} = result.data;
+                    dispatch(SET_LOGIN({user_id, nickName}))
                 } else {
                     dispatch(SET_LOGOUT(null))
                 }

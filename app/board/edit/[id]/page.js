@@ -1,144 +1,118 @@
 'use client'
 import PageTop from "@/app/components/PageTop";
 import Seo from "@/app/components/Seo";
-import axios from "axios";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import dayjs from "dayjs"             // 날짜 포맷 
 import { useSelector } from "react-redux";
+import dayjs from "dayjs"  
 
-export default function Detail() {
 
-   const user = useSelector(state => state.user.user)
+export default function Create() {
 
-    const [data, setData] = useState({});
-    const [comment, setComment] = useState('');
-    const [commentBtn, setCommentBtn] = useState(false);
+    const [ title, setTitle] = useState('');
+    const [ contents, setContents] = useState('');
+
+    const router = useRouter()
+    const { user } = useSelector( state => state.user)
 
     let id = useParams();
-    const router = useRouter();
-    
+
     useEffect(()=> {
-        axios({
-            method: 'POST',
-            url: '/api/board', 
-            data: id
-        })
-        .then( res => {         
-            setData(res.data)
-        })
+      fetch(`/api/board/edit`,{
+         method: 'POST',
+         body: JSON.stringify(id)
+      })
+      .then( res => {
+         return res.json()         
+      })
+      .then( res => {
+         setTitle(res.title)
+         setContents(res.contents)
+      })
+      .catch(err => console.log(err))
     },[])
 
     return <>
-        <Seo title='MinTax 게시판 | MinTAX'/>
+        <Seo title='글작성 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">게시글</h1>
+        <h1 className="text-center mt-10 text-2xl">글수정</h1>
 
-        <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
+        <div className="article__section mt-8 bg-neutral-00 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-[600px] lg:h-[600px] m-auto">
-                <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
-                     { user.user_id == data.regist_userid ?
-                     <> 
-                       <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> { 
-     
-                        user?.user_id == null ? alert('로그인 부탁드립니다') : router.push(`/board/edit/${id.id}`)
-     
-                       }}>수정</button>
-                       <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> {
-     
-                        if(user.user_id == null) {
-                           alert('로그인 부탁드립니다')
-                           return;
-                        } 
-                        if(confirm('삭제 하시겠습니까?')) {
-                           fetch('/api/board/delete',{
-                              method: 'POST',
-                              body: JSON.stringify({article_idx: data.article_idx })
-                           })
-                           .then(res => { return res.json()})                     
-                           .then(res => {
-                              if(res.msg == 'success') {
-                                 alert('삭제 되었습니다.')
-                                 router.push('/board')
-                              }
-                           }).catch(err => console.log(err))
-                        }     
-                       }} >삭제</button>                       
-                     </>
-                     :<> 
-                        <button className="shadow-md inline-block p-1 px-3 bg-blue-200 hover:bg-blue-200 text-white rounded mr-1 mb-0 text-sm">수정</button>
-                        <button className="shadow-md inline-block p-1 px-3 bg-red-200 hover:bg-red-200 text-white rounded mr-1 mb-0 text-sm">삭제</button>                       
-                     </>
-                     }
+            <div className="text-right mb-1 w-full lg:w-[800px] m-auto">                  
                 </div>
-                <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
-                    <thead className="">
-                        <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
-                            <th width="15%">No.{data.article_idx}</th>
-                            <th width="55%">{data?.title}</th>
-                            <th width="10%">{dayjs(data?.regist_date).format("YY.MM.DD")}</th>
-                            <th width="20%" className="">{data?.nickName}</th>
-                        </tr>
-                    </thead>
-                    {/* <tbody className="text-sm lg:text-md">                            
-                        <tr className="border-b border-1 border-slate-200" >
-                            <td  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
-                                {data?.contents}
-                            </td>          
-                        </tr>                            
-                    </tbody> */}
-                    {/* <tbody className="text-sm lg:text-md">                             */}
-                    {/* </tbody> */}
+                <table className="w-full mt-9 lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
+                                <thead className="">
+                                    <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
+                                        <th width="40%">작성일: {dayjs(Date.now()).format('YY.MM.DD')}</th>
+                                        <th width="10%"></th>
+                                        <th width="10%"></th>
+                                        <th width="40%" className="">작성자: {user.nickName}</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="text-sm lg:text-md">                            
+                                    <tr className="border-b border-1 border-slate-200" >
+                                        <td  colSpan='4' className="p-1.5 lg:p-3">
+                                            <div className="relative mb-2">
+                                                {/* <label htmlFor="name" className="leading-7 text-sm text-gray-600">제목</label> */}
+                                                <input placeholder="제목" type="text" id="name" name="title" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none
+                                                 text-gray-700 py-0 px-3 leading-8 transition-colors duration-200 ease-in-out" defaultValue={title} onChange={(e)=>{
+                                                  setTitle(e.target.value) 
+                                                }}/>
+                                            </div>                                        
+                                            <div className="relative mb-4">
+                                                {/* <label htmlFor="message" className="leading-7 text-sm text-gray-600">내용</label> */}
+                                                <textarea placeholder="내용" id="message" name="content" className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 h-60 text-sm outline-none 
+                                                text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out" defaultValue={contents} onChange={(e)=>{
+                                                  setContents(e.target.value)
+                                                }}></textarea>
+                                            </div>                                          
+                                        </td>          
+                                    </tr>                            
+                                </tbody>
                 </table>
-                <div className="border-b lg:border border-1 border-slate-200 p-1 w-full lg:w-[900px] m-auto bg-zinc-50">
-                    <span  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
-                        <br/>{data?.contents}<br/><br/>
-                    </span>          
-                </div>      
-                  <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
-                      setCommentBtn(!commentBtn)
-                    }}>댓글</button>
-                  </div>
-                <div className="relative bg-zinc-0 mt-0 py-3 w-full lg:w-[900px] m-auto">
-                  <div className="text-center   mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 혁명은 힘들어요~!</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">홍길동</span>
-                    <span className="text-[12px] lg:text-[12px]">04.22일</span>
-                  </div>
-                  <div className="text-center mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 에이 마이크로소프트보다 구글이 더 좋은데.. 우띵 우리 다른 거해요</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">이순신</span>
-                    <span className="text-[12px] lg:text-[12px] ">04.20일</span>
-                  </div>
-                  <div className="text-center mb-2">
-                    <span className="text-[16px] lg:text-[14px]inline-block bg-orange-300  p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 구글이 한건 할거 같아요</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">구글짱</span>
-                    <span className="text-[12px]  lg:text-[12px] ">04.19일</span>
-                  </div>
-                  <div className="text-center  mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl">기다려 보세요!!</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">빌게이츠</span>
-                    <span className="text-[12px]  lg:text-[12px] ">04.16일</span>
-                  </div>
-                  { commentBtn == true ?
-                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] lg:left-[40px] z-10 bg-white border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
-                      <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-200 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
-                      <div className="text-right">
-                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2">확인</button>
-                        <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>
-                      </div>
-                    </div>
-                    :null
-                  }
-                </div>                      
+                <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
+                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>취소</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=>{
+                      
+							if(title == '') {
+								alert('제목을 입력해주세요')
+								return
+							} else if(contents == '') {
+								alert('내용을 입력해주세요')
+								return
+							}
+							// let date = new Date();       
+							// console.log(date)        // 1684044653856
+							// console.log(dayjs(Date.now()).format('YY.MM.DD'))                      
 
-            </div>
+							let data = {title, contents, article_idx: id.id,
+                                 modify_userid: user.user_id,
+                                 nickName: user.nickName, 
+                                 modify_date: dayjs(Date.now()).format('YY.MM.DD HH:mm:ss')
+                     }
+
+							fetch('/api/board/update',{
+								method: 'POST',
+								body: JSON.stringify(data)
+							})
+							.then((res) => res.json())
+							.then((res) => {                                 
+							if(res.msg == 'success') {
+								alert('수정 되었습니다')
+								router.push('/board')
+							} else {
+								alert('수정 실패!')
+							}
+							
+							})
+                      .catch(err => console.log(err))
+
+                    }}>수정</button>
+                </div>
+                
+                </div>
         </div>
-
-
 
         <section className="text-gray-600 body-font">
         <div className="container px-5 py-24 mx-auto flex flex-wrap">

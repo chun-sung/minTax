@@ -21,12 +21,12 @@ export default function SuccessLogin() {
             })
             .then((result) => {                
                 if(result.data.msg == 'success') {
-                    dispatch(SET_LOGIN(result.data.nickName))
+                    const {user_id, nickName} = result.data;
+                    dispatch(SET_LOGIN({user_id, nickName}))
                 } else {
-                    // router.push('/notaccess')                        
-                    // dispatch(SET_LOGIN_WINDOW(true))
-                }
-                
+                    router.push('/notaccess')
+                    dispatch(SET_LOGIN_WINDOW(true))
+                }                
             }).catch( err => {                
                 router.push('/notaccess')
                 dispatch(SET_LOGIN_WINDOW(true))

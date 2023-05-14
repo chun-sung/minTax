@@ -5,11 +5,14 @@ import Pagination from "react-js-pagination"
 import './Pagination.css';
 import { useState, useEffect, useNavigate, useLocation } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { useSelector } from "react-redux";
 // import { useRouter } from "next/router";
 
 
 export default function BoardList() {
 
+    const user = useSelector(state => state.user.user)
+    
     // 라이브러리 설정 ( react-js-pagination )
     const router = useRouter();     //  이동시 인자 값 전달               
     const pathname = usePathname()
@@ -42,24 +45,28 @@ export default function BoardList() {
 
     return <>
         <div className="boardList__section mt-8 bg-neutral-00 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
-            <div className="boardList__wrapper h-full lg:h-[600px]">
+            <div className="boardList__wrapper min-h-[500px] lg:h-[600px]">
                 <div className="text-right mb-1 lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-1 text-sm"onClick={()=>router.push('/board/create')}>작성</button>
+                    <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-1 text-sm"onClick={()=>{
+
+                        user?.user_id == null ? alert('로그인 부탁드립니다') : router.push('/board/create')
+
+                    }}>작성</button>
                 </div>
-                <div className="text-center m-auto w-full lg:w-[900px]">
-                    <table className="w-full h-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0">
+                <div className="text-center m-auto w-full lg:w-[900px">
+                    <table className="w-full h-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0 m-auto">
                         <thead className="">
                             <tr className="text-sm  lg:text-[16px] lg:border-b border-2 bg-slate-300 h-10">
                                 <th width="15%">No</th>
                                 <th width="50%">제목</th>
                                 <th width="10%">작성일</th>
-                                <th width="25%">작성자</th>
+                                <th className="" width="25%">작성자</th>
                             </tr>
                         </thead>
                         <tbody className="text-sm lg:text-[16px]">
 
                             {
-                                posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, regist_userid }, i) => {
+                                posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, nickName }, i) => {
                                     return (
                                         <tr className="border-b border-1 border-slate-200 hover:bg-gray-50" key={i} onClick={()=> {}}>
                                             <td className="p-1.5 lg:p-3">
@@ -81,7 +88,7 @@ export default function BoardList() {
                                                 <span className="text-[14px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
                                             </td>
                                             <td className="">
-                                                <span className="text-[14px] lg:text-[16px]">{regist_userid}</span>
+                                                <span className="text-[14px] lg:text-[16px]">{nickName}</span>
                                             </td>
                                         </tr>
                                 )})

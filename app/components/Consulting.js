@@ -26,7 +26,7 @@ export default function Consulting() {
         <p className="shadow-lg bg-blue-600 p-2 lg:p-4 w-[104px] lg:w-[120px] mr-0 lg:mr-0 text-neutral-100 lg:text-sm cursor-pointer hover:bg-red-400" onClick={()=>{
            user.id !== null ? dispatch(SET_CONSULTING_PANEL(true)) : alert('로그인 하시기 바랍니다.')
         }}>상담신청</p>
-        { user.id == null ?
+        { user.user_id == null ?
             <p className="shadow-lg bg-gray-400 p-2 lg:p-4 w-[104px] lg:w-[120px] text-white text-sm cursor-pointer hover:bg-red-400" onClick={() => {
                 dispatch(SET_MEMBER_PANEL(true))
             }}>회원가입</p>        
@@ -36,19 +36,18 @@ export default function Consulting() {
         }
   
     </div>        
-    <div className="relative m-auto lg:w-[420px] ">
-
 
     {/* 상담 신청 패널 */}
+    <div className="relative m-auto lg:w-[520px] ">
     { user.member_consul == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-10 top-[-348px] lg:top-[-482px] p-5 h-96 shadow-2xl z-10">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10">
             <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">상담 신청</span><br />
             </div>
             <div className="w-full mb-2">   
                 <form>
-                    <div className="relative sm:mb-0 flex-grow w-full mb-2">
+                    <div className="relative sm:mb-0 w-full mb-2">
                         <label htmlFor="full-name" className="leading-7 text-sm text-gray-600"></label>
                         <input autoComplete="off" placeholder="제목" type="text" id="full-name" name="name" className="w-full bg-gray-300 bg-opacity-40 rounded border text-sm border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent outline-none text-gray-00 px-1 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setTitle(e.target.value)} />
                     </div>
@@ -93,10 +92,9 @@ export default function Consulting() {
         : null
         }   
         </div>
-        <div className="relative m-auto lg:w-[420px] ">
-
 
     {/* 회원 가입 패널 */}
+    <div className="relative m-auto lg:w-[420px] ">
     { user.member_panel == true ? 
         <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
             <div className="text-center">
@@ -163,7 +161,7 @@ export default function Consulting() {
         </div> 
         : null   
         }   
-        </div>
+    </div>
     </div>
 </>
 }
