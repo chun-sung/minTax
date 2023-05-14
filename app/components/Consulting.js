@@ -24,7 +24,7 @@ export default function Consulting() {
     {/*상담 신청 & 회원 가입 */}
     <div className="flex mt-10 w-full lg:w-[980px] m-auto lg:m-auto justify-center lg:justify-start mb-10">
         <p className="shadow-lg bg-blue-600 p-2 lg:p-4 w-[104px] lg:w-[120px] mr-0 lg:mr-0 text-neutral-100 lg:text-sm cursor-pointer hover:bg-red-400" onClick={()=>{
-           user.id !== null ? dispatch(SET_CONSULTING_PANEL(true)) : alert('로그인 하시기 바랍니다.')
+           user.user_id !== null ? dispatch(SET_CONSULTING_PANEL(true)) : alert('로그인 하시기 바랍니다.')
         }}>상담신청</p>
         { user.user_id == null ?
             <p className="shadow-lg bg-gray-400 p-2 lg:p-4 w-[104px] lg:w-[120px] text-white text-sm cursor-pointer hover:bg-red-400" onClick={() => {
@@ -38,9 +38,9 @@ export default function Consulting() {
     </div>        
 
     {/* 상담 신청 패널 */}
-    <div className="relative m-auto lg:w-[520px] ">
+    <div className="relative m-auto lg:w-[520px]">
     { user.member_consul == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10 rounded">
             <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">상담 신청</span><br />
@@ -96,7 +96,7 @@ export default function Consulting() {
     {/* 회원 가입 패널 */}
     <div className="relative m-auto lg:w-[420px] ">
     { user.member_panel == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10 rounded">
             <div className="text-center">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold">회원가입</span><br /><br />

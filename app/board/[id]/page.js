@@ -124,8 +124,8 @@ export default function Detail() {
                     <span className="text-[12px]  lg:text-[12px] ">04.16일</span>
                   </div>
                   { commentBtn == true ?
-                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] lg:left-[40px] z-10 bg-white border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
-                      <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-200 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
+                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] lg:left-[40px] z-10 bg-gray-300 border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
+                      <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-100 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
                       <div className="text-right">
                         <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2">확인</button>
                         <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>

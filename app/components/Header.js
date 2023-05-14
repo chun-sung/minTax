@@ -143,7 +143,7 @@ export default function Header() {
         {
         user.login == true ? 
             <div className={user.login !== true ? null 
-                :  "absolute border-stone-800 border-[1px] bg-gray-100  w-full lg:w-[420px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-64 shadow-2xl z-10"
+                :  "absolute border-stone-800 border-[1px] bg-gray-100  w-full lg:w-[420px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-64 shadow-2xl z-10 rounded"
                 }>
                 <div className="text-center">                   
                     <span className="text-xl font-bold">Login</span><br /><br />

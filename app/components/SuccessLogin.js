@@ -17,7 +17,7 @@ export default function SuccessLogin() {
             axios({
                 url: "https://min-tax-8h5x.vercel.app/api/login/success",
                 method: "GET",
-                withCredentials: true,
+                withCredentials: true, 
             })
             .then((result) => {                
                 if(result.data.msg == 'success') {
