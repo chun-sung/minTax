@@ -22,7 +22,7 @@ export default function Detail() {
 
    
     // tanstack/react-query 1            
-    const { isLoading, error, data, refetch, postQuery } = useQuery({
+    const { isLoading, error, data, postQuery } = useQuery({
       queryKey: ['article'],        
       queryFn: () =>  fetch(`/api/board`,{
         method: 'POST',
@@ -38,7 +38,7 @@ export default function Detail() {
     const info = article?.article_idx  // 종속 변수 1
 
     // tanstack/react-query 2  (종속 쿼리)     
-    let ready = useQuery({   
+    let { refetch } = useQuery({   
 
       queryKey:['comment'],
       queryFn: () =>  fetch(`/api/comments?article_idx=${article.article_idx}`).then(res => res.json()).then( res => { 
