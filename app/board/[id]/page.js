@@ -86,7 +86,6 @@ export default function Detail() {
                            .then(res => { return res.json()})                     
                            .then(res => {
                               if(res.msg == 'success') {
-                                 alert('삭제 되었습니다.')
                                  router.push('/board')
                               }
                            }).catch(err => console.log(err))
@@ -154,7 +153,6 @@ export default function Detail() {
                           .then(res => {
 
                             if(res.msg == 'success'){
-                              alert('등록 되었습니다.')
                               refetch();
                               setCommentBtn(false)
                               setComment('')

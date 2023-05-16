@@ -7,7 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_PANEL,SET_MENU_BTN } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import SuccessLogin from "./SuccessState";
+import SuccessState from "./SuccessState";
+
 
 export default function Header() {
 
@@ -56,11 +57,10 @@ export default function Header() {
         .catch((err) => console.log(err))
     }
 
-
     return <>        
         {/* Seo */}        
         <Seo title='Home | MTAX'/>
-        <SuccessLogin />
+        <SuccessState />
         {/* 모달 효과 */}
         <div className={ user.menu == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_MENU_BTN(false))}></div>        
         <div className={ user.login == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_LOGIN_WINDOW(false))}></div>        
@@ -104,13 +104,11 @@ export default function Header() {
                     </div>
                 </div>
 
-
-                {/* 모바일 메뉴 버튼 */}
+            {/* 모바일 메뉴 버튼 */}
                 <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
                     <img className="w-[40px] z-40" src="/hamburger.svg"/>
                 </div>     
             </div>    
-
 
             {/* 네비게이션 */}
             <nav className={user.menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
@@ -179,11 +177,9 @@ export default function Header() {
         </div>
         <div className="h-[60px] lg:h-[170px]"></div>       
 
-
-
         {/* 하단 오른쪽 사이드 메뉴 */}
-
         <Rsidebar />
+        
         <style jsx>{`
             .user_id:hover .logOutBtn {
                 display: inline;

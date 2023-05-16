@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGIN, SET_LOGOUT } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 
-// import { login, logout } from "../store/user";
 
-// login/success 로 요청을 보내는 로직(토큰 전송 /사용자 구분)
+
+// 새로고침 및 접속시에  
+//  token 이 유효하면  token 정보로 로그인을 유지만 시킨다. (새로 고침시)
 export default function SuccessLogin() {
     
     let dispatch = useDispatch();
