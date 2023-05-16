@@ -155,6 +155,7 @@ export default function Detail() {
 
                             if(res.msg == 'success'){
                               alert('등록 되었습니다.')
+                              refetch();
                               setCommentBtn(false)
                               setComment('')
                             } else {
