@@ -36,8 +36,8 @@ export default function BoardList() {
         }),        
     })   
     
-        // useQuery 데이터 로딩중
-    if(isLoading) return <div className="text-center mt-10 p-2 bg-red-200 text-white w-36 rounded-lg m-auto">Loading...</div>
+    // useQuery 데이터 로딩중
+    if(isLoading) return <div className="text-center mt-10 p-2 bg-red-400 text-white w-36 rounded-lg m-auto">Loading...</div>
 
         // useQuery 에러처리
     if(error) return <pre>{JSON.stringify(postQuery?.error)}</pre>
@@ -62,9 +62,9 @@ export default function BoardList() {
                                 <th width="10%">작성일</th>
                                 <th className="" width="25%">작성자</th>
                             </tr>
-                        </thead>
+                        </thead>  
                         <tbody className="text-sm lg:text-[16px]">
-
+                            
                             {
                                 posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, nickName }, i) => {
                                     return (
@@ -75,7 +75,7 @@ export default function BoardList() {
                                             <td className="lg:text-md hover:text-blue-500 hover:font-bold">
                                                 
                                                 <span className="inline-block text-[14px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
-                                                    router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}})}}>
+                                                    router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}}, {article_idx: article_idx})}}>
 
                                                     {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
                                                                 ? <span className="relative left-[10px] bg-blue-600 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-4 shadow-md" >New</span> 

@@ -71,6 +71,8 @@ export default function Header() {
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
                 <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}><img className="w-20 lg:w-32" src="/logo.svg" /></Link>
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
+                    
+        {/* 로그인 한 사용자 닉네임 표시*/}
                     <div className="relative inline-block text-[12px] lg:text-[16px] ml-[-15px] lg:ml-[-30px] top-[-5px] lg:top-[3px] text-neutral-500">{user.nickName}
                         { user.user_id !== null ?
                             <span className="logOutBtn font-bold border-[1px] border-red-500 rounded-xl hover:bg-red-400 hover:text-white bg-white  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
@@ -128,7 +130,7 @@ export default function Header() {
                     <hr className="p-3 lg:hidden" />
                     <p className="text-black lg:text-white mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/board' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>게시판</Link></p>
                     <hr className="p-3 lg:hidden"/>
-                    { user.id !== null ?
+                    { user.user_id !== null ?
                         <>
                         <p className="text-red-400 lg:text-red-400 mb-3 lg:mt-4 font-bold hover:text-blue-300 cursor-pointer"><Link href='/mypage' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>MyPage</Link></p>
                         <hr className="p-3 lg:hidden"/>

@@ -4,6 +4,7 @@ import PageTop from "../components/PageTop";
 import Seo from "../components/Seo";
 
 export default function About() {
+
     return <>
         <Seo title='게시판 | MinTAX'/>
         <PageTop />

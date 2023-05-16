@@ -1,45 +1,71 @@
 'use client'
 import PageTop from "@/app/components/PageTop";
 import Seo from "@/app/components/Seo";
-import axios from "axios";
 import { useParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import dayjs from "dayjs"             // 날짜 포맷 
 import { useSelector } from "react-redux";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Detail() {
 
    const user = useSelector(state => state.user.user)
 
-    const [data, setData] = useState({});
+    const [article, setArticle] = useState({});
+    const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [commentBtn, setCommentBtn] = useState(false);
 
     let id = useParams();
-    const router = useRouter();
+    const router = useRouter();  
+
+   
+    // tanstack/react-query 1            
+    const { isLoading, error, data, refetch, postQuery } = useQuery({
+      queryKey: ['article'],        
+      queryFn: () =>  fetch(`/api/board`,{
+        method: 'POST',
+        body: JSON.stringify({id: id.id})
+
+      }).then(res => res.json()).then( res => { 
+        // console.log('게시글 1건',res)
+        setArticle(res)        
+        return res
+      }),
+    })      
     
-    useEffect(()=> {
-        axios({
-            method: 'POST',
-            url: '/api/board', 
-            data: id
-        })
-        .then( res => {         
-            setData(res.data)
-        })
-    },[])
+    const info = article?.article_idx  // 종속 변수 1
+
+    // tanstack/react-query 2  (종속 쿼리)     
+    let ready = useQuery({   
+
+      queryKey:['comment'],
+      queryFn: () =>  fetch(`/api/comments?article_idx=${article.article_idx}`).then(res => res.json()).then( res => { 
+        // console.log('댓글리스트',res)
+        setComments(res)
+        return res
+      }),
+      enabled: !!info       // info 에 데이터가 존재해야 쿼리됨
+    })
+    
+    // useQuery 데이터 로딩중 (여기서 사용하면 안됨)
+    // if(isLoading) return <div className="text-center mt-10 p-2 bg-red-200 text-white w-36 rounded-lg m-auto">Loading...</div>
+    
+    // useQuery 에러처리
+    if(error) return <pre>{JSON.stringify(postQuery?.error)}</pre>
 
     return <>
         <Seo title='MinTax 게시판 | MinTAX'/>
         <PageTop />
         <h1 className="text-center mt-10 text-2xl">게시글</h1>
 
+      {/* 게시글 출력창 */}
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
-            <div className="article__wrapper w-full lg:w-[1000px] h-[600px] lg:h-[600px] m-auto">
+            <div className="article__wrapper w-full lg:w-[1000px] h-full lg:h-full m-auto">
                 <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
-                     { user.user_id == data.regist_userid ?
+                     { user.user_id == article.regist_userid ?
                      <> 
                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> { 
      
@@ -73,75 +99,98 @@ export default function Detail() {
                      </>
                      }
                 </div>
+
+              {/* 게시글 정보 */}
                 <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
                     <thead className="">
                         <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
-                            <th width="15%">No.{data.article_idx}</th>
-                            <th width="55%">{data?.title}</th>
-                            <th width="10%">{dayjs(data?.regist_date).format("YY.MM.DD")}</th>
-                            <th width="20%" className="">{data?.nickName}</th>
+                            <th width="15%">No.{article.article_idx}</th>
+                            <th width="55%">{article?.title}</th>
+                            <th width="10%">{dayjs(article?.regist_date).format("YY.MM.DD")}</th>
+                            <th width="20%" className="">{article?.nickName}</th>
                         </tr>
                     </thead>
-                    {/* <tbody className="text-sm lg:text-md">                            
-                        <tr className="border-b border-1 border-slate-200" >
-                            <td  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
-                                {data?.contents}
-                            </td>          
-                        </tr>                            
-                    </tbody> */}
-                    {/* <tbody className="text-sm lg:text-md">                             */}
-                    {/* </tbody> */}
                 </table>
-                <div className="border-b lg:border border-1 border-slate-200 p-1 w-full lg:w-[900px] m-auto bg-zinc-50">
-                    <span  colSpan='4' className="p-1.5 lg:p-3 h-96 ">
-                        <br/>{data?.contents}<br/><br/>
+                <div className="border-b lg:border border-1 border-slate-200 p-1 w-full lg:w-[900px] m-auto bg-zinc-100">
+                    <span  colSpan='4' className="p-1.5 lg:p-3 h-96 text-lg">
+                        <br/>{article?.contents}<br/><br/>
                     </span>          
                 </div>      
+                
+              {/* 댓글 입력 버튼 */}
+
                   <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
-                      setCommentBtn(!commentBtn)
+                      user.user_id == null ? alert('로그인 부탁드립니다.') 
+                      : setCommentBtn(true)
                     }}>댓글</button>
                   </div>
-                <div className="relative bg-zinc-0 mt-0 py-3 w-full lg:w-[900px] m-auto">
-                  <div className="text-center   mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 혁명은 힘들어요~!</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">홍길동</span>
-                    <span className="text-[12px] lg:text-[12px]">04.22일</span>
-                  </div>
-                  <div className="text-center mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 에이 마이크로소프트보다 구글이 더 좋은데.. 우띵 우리 다른 거해요</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">이순신</span>
-                    <span className="text-[12px] lg:text-[12px] ">04.20일</span>
-                  </div>
-                  <div className="text-center mb-2">
-                    <span className="text-[16px] lg:text-[14px]inline-block bg-orange-300  p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl"> 구글이 한건 할거 같아요</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">구글짱</span>
-                    <span className="text-[12px]  lg:text-[12px] ">04.19일</span>
-                  </div>
-                  <div className="text-center  mb-2">
-                    <span className="inline-block bg-orange-300 p-1 lg:p-1.5 px-2 lg:px-4 rounded-xl">기다려 보세요!!</span>
-                    <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">빌게이츠</span>
-                    <span className="text-[12px]  lg:text-[12px] ">04.16일</span>
-                  </div>
+
+
+                <div className="relative bg-zinc-0 mt-0 py-0 w-full lg:w-[900px] m-auto">
+
+                  {/* 댓글 입력 패널 */}
+
                   { commentBtn == true ?
-                    <div className="relative lg:absolute top-[-260px] lg:top-[-50px] lg:left-[40px] z-10 bg-gray-300 border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
+                    <div className="absolute lg:absolute top-[-48px] lg:top-[-48px] lg:left-[40px] z-20 bg-gray-300 border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
                       <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-100 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
                       <div className="text-right">
-                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2">확인</button>
+                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2" onClick={()=> {
+
+                          if(comment.length == '' ) return alert('댓글을 입력하세요')
+
+                          let commentData = { comment, nickName: user.nickName,
+                                              regist_userid: user.user_id,
+                                              article_idx: article.article_idx,
+                                              regist_date: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss')
+                          }
+                          fetch('/api/board/comments', {
+                            method: 'POST',
+                            body: JSON.stringify(commentData)
+                          })
+                          .then(res => {
+                            return res.json()
+                          })
+                          .then(res => {
+
+                            if(res.msg == 'success'){
+                              alert('등록 되었습니다.')
+                              setCommentBtn(false)
+                              setComment('')
+                            } else {
+                              alert('등록에 실패하였습니다.')
+                            }
+                          }).catch(err => console.log(err))
+
+                        }}>확인</button>
                         <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>
                       </div>
                     </div>
                     :null
                   }
-                </div>                      
-
+                </div>
             </div>
-        </div>
+            {/*댓글 출력창  */}
 
+            {/* isLoading */}
+            {
+              isLoading == true ? <div className="text-center mt-0 p-2 bg-red-400 text-white w-36 rounded-lg m-auto">Loading...</div> : null
+            }
+            { comments.length !== 0 
 
+              ? comments.map(( item, i) => {                     
+                  return <div className="text-center mb-2 text-sm" key={i}>
+                            <span className="inline-block bg-orange-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
+                            <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">{item.nickName}</span>
+                            <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date).format('YY.MM.DD')}</span>
+                        </div>
+                })                  
+              : isLoading == true ? null : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">첫 번째 댓글을 남겨보세요</span>
+            }
+      </div>
 
-        <section className="text-gray-600 body-font">
-        <div className="container px-5 py-24 mx-auto flex flex-wrap">
+        <section className="text-gray-600 body-font my-20">
+        <div className="container px-5 py-0 mx-auto flex flex-wrap">
           <div className="lg:w-2/3 mx-auto">
             <div className="flex flex-wrap w-full bg-gray-100 py-32 px-10 relative mb-4">
               <img alt="gallery" className="w-full object-cover h-full object-center block opacity-25 absolute inset-0" src="https://dummyimage.com/820x340"/>

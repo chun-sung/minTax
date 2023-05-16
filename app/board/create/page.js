@@ -63,9 +63,6 @@ export default function Create() {
 								alert('내용을 입력해주세요')
 								return
 							}
-							// let date = new Date();       
-							// console.log(date)        // 1684044653856
-							// console.log(dayjs(Date.now()).format('YY.MM.DD')) 
 
 							// 나중에 조회수 및 보여주기 적용할 것                    
 							let data = { board_idx:1, title, contents, user_id: user.user_id, nickName: user.nickName, regist_date: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss') }
