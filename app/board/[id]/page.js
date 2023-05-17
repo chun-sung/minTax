@@ -12,7 +12,7 @@ export default function Detail() {
 
    const user = useSelector(state => state.user.user)
 
-    const [article, setArticle] = useState({});
+    const [article, setArticle] = useState([]);
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
     const [commentBtn, setCommentBtn] = useState(false);
@@ -20,35 +20,51 @@ export default function Detail() {
     let id = useParams();
     const router = useRouter();  
 
-   
-    // tanstack/react-query 1            
-    const { isLoading, error, data, postQuery } = useQuery({
-      queryKey: ['article'],        
-      queryFn: () =>  fetch(`/api/board`,{
-        method: 'POST',
-        body: JSON.stringify({id: id.id})
+       // tanstack/react-query 1            
+    // const { isLoading, error, data, postQuery } = useQuery({
+    //   queryKey: ['article'],        
+    //   queryFn: () =>  fetch(`/api/board`,{
+    //     method: 'POST',
+    //     body: JSON.stringify({id: id.id})
 
-      }).then(res => res.json()).then( res => { 
-        // console.log('게시글 1건',res)
+    //   }).then(res => res.json()).then( res => { 
+    //     // console.log('게시글 1건',res)
+    //     setArticle(res)        
+    //     return res
+    //   }),
+    // })      
+
+    
+    // const info = article?.article_idx  // 종속 변수 1
+
+
+    // // tanstack/react-query 2  (종속 쿼리)     
+    // let { refetch } = useQuery({   
+
+    //   queryKey:['comment'],
+    //   queryFn: () =>  fetch(`/api/comments?article_idx=${article.article_idx}`).then(res => res.json()).then( res => { 
+    //     // console.log('댓글리스트',res)
+    //     setComments(res)
+    //     console.log(res);
+    //     return res
+    //   }),
+    //   enabled: !!info       // info 에 데이터가 존재해야 쿼리됨
+    // })
+    
+
+
+    // tanstack/react-query 3            
+    const { isLoading, error, data, postQuery, refetch } = useQuery({
+      queryKey: ['article'],        
+      queryFn: () =>  fetch(`/api/comments?article_idx=${id.id}`)
+      .then(res => res.json()).then( res => { 
+        // console.log(res)
         setArticle(res)        
         return res
       }),
-    })      
-    
-    const info = article?.article_idx  // 종속 변수 1
+    })          
 
-    // tanstack/react-query 2  (종속 쿼리)     
-    let { refetch } = useQuery({   
 
-      queryKey:['comment'],
-      queryFn: () =>  fetch(`/api/comments?article_idx=${article.article_idx}`).then(res => res.json()).then( res => { 
-        // console.log('댓글리스트',res)
-        setComments(res)
-        return res
-      }),
-      enabled: !!info       // info 에 데이터가 존재해야 쿼리됨
-    })
-    
     // useQuery 데이터 로딩중 (여기서 사용하면 안됨)
     // if(isLoading) return <div className="text-center mt-10 p-2 bg-red-200 text-white w-36 rounded-lg m-auto">Loading...</div>
     
@@ -65,7 +81,7 @@ export default function Detail() {
             <div className="article__wrapper w-full lg:w-[1000px] h-full lg:h-full m-auto">
                 <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
-                     { user.user_id == article.regist_userid ?
+                     { user.user_id == article[0]?.regist_userid ?
                      <> 
                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> { 
      
@@ -81,7 +97,7 @@ export default function Detail() {
                         if(confirm('삭제 하시겠습니까?')) {
                            fetch('/api/board/delete',{
                               method: 'POST',
-                              body: JSON.stringify({article_idx: data.article_idx })
+                              body: JSON.stringify({article_idx: article[0]?.article_idx })
                            })
                            .then(res => { return res.json()})                     
                            .then(res => {
@@ -103,16 +119,16 @@ export default function Detail() {
                 <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
                     <thead className="">
                         <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
-                            <th width="15%">No.{article.article_idx}</th>
-                            <th width="55%">{article?.title}</th>
-                            <th width="10%">{dayjs(article?.regist_date).format("YY.MM.DD")}</th>
-                            <th width="20%" className="">{article?.nickName}</th>
+                            <th width="15%">No.{article[0]?.article_idx}</th>
+                            <th width="55%">{article[0]?.title}</th>
+                            <th width="10%">{dayjs(article[0]?.regist_date).format("YY.MM.DD")}</th>
+                            <th width="20%" className="">{article[0]?.nickName}</th>
                         </tr>
                     </thead>
                 </table>
                 <div className="border-b lg:border border-1 border-slate-200 p-1 w-full lg:w-[900px] m-auto bg-zinc-100">
                     <span  colSpan='4' className="p-1.5 lg:p-3 h-96 text-lg">
-                        <br/>{article?.contents}<br/><br/>
+                        <br/>{article[0]?.contents}<br/><br/>
                     </span>          
                 </div>      
                 
@@ -138,10 +154,10 @@ export default function Detail() {
 
                           if(comment.length == '' ) return alert('댓글을 입력하세요')
 
-                          let commentData = { comment, nickName: user.nickName,
-                                              regist_userid: user.user_id,
-                                              article_idx: article.article_idx,
-                                              regist_date: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss')
+                          let commentData = { comment, nickName_comment: user.nickName,
+                                              regist_userid_comment: user.user_id,
+                                              article_idx_comment: article[0].article_idx,
+                                              regist_date_comment: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss')
                           }
                           fetch('/api/board/comments', {
                             method: 'POST',
@@ -175,16 +191,16 @@ export default function Detail() {
             {
               isLoading == true ? <div className="text-center mt-0 p-2 bg-red-400 text-white w-36 rounded-lg m-auto">Loading...</div> : null
             }
-            { comments.length !== 0 
+            { article[0]?.comment_idx !==  null 
 
-              ? comments.map(( item, i) => {                     
+              ? article.map(( item, i) => {                     
                   return <div className="text-center mb-2 text-sm" key={i}>
                             <span className="inline-block bg-orange-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
-                            <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">{item.nickName}</span>
-                            <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date).format('YY.MM.DD')}</span>
+                            <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">{item.nickName_comment}</span>
+                            <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date_comment).format('YY.MM.DD')}</span>
                         </div>
                 })                  
-              : isLoading == true ? null : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">첫 번째 댓글을 남겨보세요</span>
+              : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">첫 번째 댓글을 남겨보세요</span>
             }
       </div>
 

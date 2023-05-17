@@ -8,11 +8,17 @@ export async function GET(req) {
     
     try {
 
-        // if(cookies().get('accessToken') !== ''){   // 엑세스 토큰 값 체크 안됨
+        const token = cookies().get('accessToken');
+
+        
+        if(token?.value == undefined) {   // 엑세스 토큰 값 체크 안됨
+            return new Response(JSON.stringify({msg: 'jwt_fail'}))   
+        }
+        if(token?.value !== '') {   // 엑세스 토큰 값 체크 안됨
+
             let JWT_ACCESS_SECRET='springstar74'                
 
-            const token = cookies().get('accessToken');
-            const data = jwt.verify( token.value, JWT_ACCESS_SECRET);
+            const data = jwt.verify(token?.value, JWT_ACCESS_SECRET);
             // console.log('데이터',data);                                   // { nickName: 'springstar', user_id: 'springstar@daum.net' . . .}
 
             // 위 토큰 검증 실패하면 아래 코드 실행 안됨
@@ -22,7 +28,7 @@ export async function GET(req) {
             let {password, ...others } = result[0];        // 패스워드 분리
             let result2 = { msg:'success', ...others}      // msg 정보 추가   
 
-            if(data.user_id === result[0].user_id) {                       
+            if(data?.user_id === result[0]?.user_id) {                       
             
                 return new Response(JSON.stringify(result2))   
             } else {
@@ -31,7 +37,7 @@ export async function GET(req) {
 
             // else 문은 필요하지 않다. jwt토큰이 맞지 않으면 에러 발생한다.              
             return 
-        // } 
+        } 
         return new Response(JSON.stringify({msg: 'jwt_fail'}))   
 
     } catch (err) {
