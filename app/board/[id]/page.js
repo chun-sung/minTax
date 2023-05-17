@@ -198,6 +198,23 @@ export default function Detail() {
                             <span className="inline-block bg-orange-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
                             <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">{item.nickName_comment}</span>
                             <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date_comment).format('YY.MM.DD')}</span>
+                            { user.user_id == item.regist_userid_comment
+                             ? <span className="hover:bg-red-500 ml-2 w-[20px] h-[20px] inline-block text-[12px] text-white lg:text-[12px] leading-[80%] bg-blue-200 rounded-full p-1 cursor-pointer" onClick={()=>{
+  
+                              confirm(`"${item.comment}" \n댓글을 삭제하시려구요?`) 
+                              ? fetch('/api/board/comments/delete',{
+                                method: 'POST',
+                                body: JSON.stringify({ comment_idx: item.comment_idx })
+                              })
+                              .then(res => res.json())
+                              .then(res => { 
+                                refetch();
+                                // if(res.msg == 'success') return console.log('댓글 1건 삭제 되었습니다.')                       
+                              })
+                              : null
+                              }}>x</span>
+                              : <span className="hover:bg-red-500 ml-2 w-[20px] h-[20px] inline-block text-[12px] lg:text-[12px] leading-[60%] text-white bg-white border-[1px] border-blue-200 rounded-full p-1 cursor-pointer" onClick={()=> alert('내가쓴 댓글만 삭제할 수 있어요!')}>x</span>
+                            }
                         </div>
                 })                  
               : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">첫 번째 댓글을 남겨보세요</span>
