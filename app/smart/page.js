@@ -5,7 +5,7 @@ export default function Smart() {
     return <>
         <Seo title='기장서비스 | MinTAX' />
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">SMART 기장서비스</h1>
+        <h1 className="text-center mt-10 text-2xl">SMART 서비스</h1>
         
         <section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">

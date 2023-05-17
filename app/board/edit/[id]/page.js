@@ -75,38 +75,37 @@ export default function Create() {
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>취소</button>
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=>{
                       
-							if(title == '') {
-								alert('제목을 입력해주세요')
-								return
-							} else if(contents == '') {
-								alert('내용을 입력해주세요')
-								return
-							}
-							// let date = new Date();       
-							// console.log(date)        // 1684044653856
-							// console.log(dayjs(Date.now()).format('YY.MM.DD'))                      
+                      if(title == '') {
+                        alert('제목을 입력해주세요')
+                        return
+                      } else if(contents == '') {
+                        alert('내용을 입력해주세요')
+                        return
+                      }
+                      // let date = new Date();       
+                      // console.log(date)        // 1684044653856
+                      // console.log(dayjs(Date.now()).format('YY.MM.DD'))                      
 
-							let data = {title, contents, article_idx: id.id,
-                                 modify_userid: user.user_id,
-                                 nickName: user.nickName, 
-                                 modify_date: dayjs(Date.now()).format('YY.MM.DD HH:mm:ss')
-                     }
+                      let data = {title, contents, article_idx: id.id,
+                                        modify_userid: user.user_id,
+                                        nickName: user.nickName, 
+                                        modify_date: dayjs(Date.now()).format('YY.MM.DD HH:mm:ss')
+                                  }
 
-							fetch('/api/board/update',{
-								method: 'POST',
-								body: JSON.stringify(data)
-							})
-							.then((res) => res.json())
-							.then((res) => {                                 
-							if(res.msg == 'success') {
-								alert('수정 되었습니다')
-								router.push('/board')
-							} else {
-								alert('수정 실패!')
-							}
-							
-							})
-                      .catch(err => console.log(err))
+                      fetch('/api/board/update',{
+                        method: 'POST',
+                        body: JSON.stringify(data)
+                      })
+                      .then((res) => res.json())
+                      .then((res) => {                                 
+                      if(res.msg == 'success') {
+                        alert('수정 되었습니다')
+                        router.push('/board')
+                      } else {
+                        alert('수정 실패!')
+                      }
+                      
+                      }).catch(err => console.log(err))
 
                     }}>수정</button>
                 </div>

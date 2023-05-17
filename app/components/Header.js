@@ -89,7 +89,7 @@ export default function Header() {
                                             // console.log('로그아웃 성공')
                                             router.push('/')
                                         }
-                                    })
+                                    }).catch(err => console.log(err))
                                 }
                             }}>logout</span>
                             : <span className="logOutBtn font-bold absolute border-[1px] border-red-500 rounded-xl text-white bg-red-400  hover:bg-white px-3 lg:px-5  py-1 lg:py-0.5 hover:text-red-500 right-[-80px] lg:right-[-83px] top-[-23px] lg:top-[-px] cursor-pointer" onClick={()=> {

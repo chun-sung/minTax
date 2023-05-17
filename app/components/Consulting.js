@@ -153,7 +153,7 @@ export default function Consulting() {
                         } else if(data.msg == 'id_fail') {
                             alert('이미 사용중인 아이디 입니다.')
                         }
-                    })
+                    }).catch(err => console.log(err))
                     
                 }}>확인</button>
                 <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>

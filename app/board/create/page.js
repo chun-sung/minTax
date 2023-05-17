@@ -56,32 +56,30 @@ export default function Create() {
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>뒤로</button>
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=>{
                       
-							if(title == '') {
-								alert('제목을 입력해주세요')
-								return
-							} else if(contents == '') {
-								alert('내용을 입력해주세요')
-								return
-							}
+                      if(title == '') {
+                        alert('제목을 입력해주세요')
+                        return
+                      } else if(contents == '') {
+                        alert('내용을 입력해주세요')
+                        return
+                      }
 
-							// 나중에 조회수 및 보여주기 적용할 것                    
-							let data = { board_idx:1, title, contents, user_id: user.user_id, nickName: user.nickName, regist_date: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss') }
+                      // 나중에 조회수 및 보여주기 적용할 것                    
+                      let data = { board_idx:1, title, contents, user_id: user.user_id, nickName: user.nickName, regist_date: dayjs(Date.now()).format('YYYY.MM.DD HH:mm.ss') }
 
-							fetch('/api/board/write',{
-								method: 'POST',
-								body: JSON.stringify(data)
-							})
-							.then((res) => res.json())
-							.then((res) => {                                 
-							if(res.msg == 'success') {
-								alert('등록 되었습니다')
-								router.push('/board')
-							} else {
-								alert('등록 실패!')
-							}
-							
-							})
-                      .catch(err => console.log(err))
+                      fetch('/api/board/write',{
+                        method: 'POST',
+                        body: JSON.stringify(data)
+                      })
+                      .then((res) => res.json())
+                      .then((res) => {                                 
+                        if(res.msg == 'success') {
+                          alert('등록 되었습니다')
+                          router.push('/board')
+                        } else {
+                          alert('등록 실패!')
+                        }                      
+                      }).catch(err => console.log(err))
 
                     }}>등록</button>
                 </div>

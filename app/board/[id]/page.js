@@ -185,21 +185,23 @@ export default function Detail() {
                   }
                 </div>
             </div>
-            {/*댓글 출력창  */}
 
             {/* isLoading */}
             {
               isLoading == true ? <div className="text-center mt-0 p-2 bg-red-400 text-white w-36 rounded-lg m-auto">Loading...</div> : null
             }
+
+            {/* 댓글 출력창  */}
+
             { article[0]?.comment_idx !==  null 
 
               ? article.map(( item, i) => {                     
-                  return <div className="text-center mb-2 text-sm" key={i}>
-                            <span className="inline-block bg-orange-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
-                            <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-zinc-400 text-white py-[2px] px-2">{item.nickName_comment}</span>
+                  return <div className="text-center mb-2 text-sm bg-orange-000 w-full lg:w-[900px] m-auto" key={i}>
+                            <span className="inline-block bg-zinc-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
+                            <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-indigo-400 text-white py-[1px] px-2 pb-0.5 leading-[10%]">{item.nickName_comment}</span>
                             <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date_comment).format('YY.MM.DD')}</span>
                             { user.user_id == item.regist_userid_comment
-                             ? <span className="hover:bg-red-500 ml-2 w-[20px] h-[20px] inline-block text-[12px] text-white lg:text-[12px] leading-[80%] bg-blue-200 rounded-full p-1 cursor-pointer" onClick={()=>{
+                             ? <span className="hover:bg-red-500 ml-2 w-[15px] h-[15px] inline-block text-[12px] text-white lg:text-[12px] leading-[40%] bg-red-300 rounded-full p-1 cursor-pointer" onClick={()=>{
   
                               confirm(`"${item.comment}" \n댓글을 삭제하시려구요?`) 
                               ? fetch('/api/board/comments/delete',{
@@ -210,10 +212,11 @@ export default function Detail() {
                               .then(res => { 
                                 refetch();
                                 // if(res.msg == 'success') return console.log('댓글 1건 삭제 되었습니다.')                       
-                              })
+                              }).catch(err => console.log(err))
+                              
                               : null
                               }}>x</span>
-                              : <span className="hover:bg-red-500 ml-2 w-[20px] h-[20px] inline-block text-[12px] lg:text-[12px] leading-[60%] text-white bg-white border-[1px] border-blue-200 rounded-full p-1 cursor-pointer" onClick={()=> alert('내가쓴 댓글만 삭제할 수 있어요!')}>x</span>
+                              : <span className="hover:bg-red-500 ml-2 w-[15px] h-[15px] inline-block text-[12px] lg:text-[12px] leading-[90%] text-black hover:text-white bg-white border-[1px] border-blue-200 rounded-full p-0 cursor-pointer" onClick={()=> alert('내가 쓴 댓글만 삭제할 수 있어요!')}>x</span>
                             }
                         </div>
                 })                  

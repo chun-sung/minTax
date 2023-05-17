@@ -1,7 +1,6 @@
 const { pool } = require('../../../DB/db');
 import jwt from 'jsonwebtoken'
 import { cookies } from 'next/dist/client/components/headers';
-import { useRouter } from 'next/navigation';
 
 // SuccessLogin  (로그인 검증)
 export async function GET(req) {

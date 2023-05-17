@@ -74,7 +74,7 @@ export default function BoardList() {
                                             </td>
                                             <td className="lg:text-md hover:text-blue-500 hover:font-bold">
                                                 
-                                                <span className="inline-block text-[14px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
+                                                <span className="inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
                                                     router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}}, {article_idx: article_idx})}}>
 
                                                     {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
@@ -85,10 +85,10 @@ export default function BoardList() {
                                                 
                                             </td >
                                             <td className="lg:text-md">
-                                                <span className="text-[14px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
+                                                <span className="text-[16px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
                                             </td>
                                             <td className="">
-                                                <span className="text-[14px] lg:text-[16px]">{nickName}</span>
+                                                <span className="text-[16px] lg:text-[16px]">{nickName}</span>
                                             </td>
                                         </tr>
                                 )})
