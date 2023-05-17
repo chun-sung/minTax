@@ -18,7 +18,9 @@
 
 
 // 로그인 않한 유저 메인 화면으로 돌려 보내기 (JWT 토큰 미보유시)
-import jwt from 'jsonwebtoken';                        // edge runtime 환경에서 NodeJS 전역 모드를 지원하지 않음 (verify 검증시 오류 발생 / 사용불가)
+
+// edge runtime 환경에서 NodeJS 전역 모드를 지원하지 않음 (verify 검증시 오류 발생 / 사용불가)
+//import jwt from 'jsonwebtoken';    (import 시 build 에서 에러 발생함- 컴파일 실패)                    
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {
@@ -29,7 +31,7 @@ export async function middleware(req) {
       // console.log(req.cookies)                                 //   쿠기 정보 수신
 
       try {         
-            const token = req.cookies.get('accessToken')         
+            const token = req.cookies.get('accessToken')
             // console.log(token)                                 // { name: 'accessToken', value: 'eyJhbGciOiJIUzI1Ng0Pf6Q2TNsFMBohEjc3Q_Y28g' }
 
             if(token?.value == undefined) {
