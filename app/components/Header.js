@@ -75,7 +75,7 @@ export default function Header() {
         let val = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]  // mode 가 없으면 '' 리턴 됨
 
         // console.log(val == '')
-
+        
         if(val == '') {
             document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
         }
@@ -164,7 +164,7 @@ export default function Header() {
                                 router.refresh()
                                 setTimeout(()=> {
                                     document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                }, 300)
+                                }, 400)
                             } else if(mode == 'lightMode') {
                                 document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
                                 router.refresh()
@@ -172,7 +172,7 @@ export default function Header() {
                                     if(typeof window !== 'undefined'){
                                         document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
                                     }
-                                }, 300)                                
+                                }, 400)     // 400정도 주어야 지 너무 짤게 주면 커버 삭제가 실패되는 듯하다.                        
                             } else {
                                 document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
                                 router.refresh()
@@ -180,7 +180,7 @@ export default function Header() {
                                     if(typeof window !== 'undefined'){
                                         document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
                                     }
-                                }, 300)
+                                }, 400)    // 400정도 주어야 지 너무 짤게 주면 커버 삭제가 실패되는 듯하다.
                             }
                         }
                     }}>{
