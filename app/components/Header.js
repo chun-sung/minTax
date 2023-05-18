@@ -122,8 +122,7 @@ export default function Header() {
                                dispatch(SET_MEMBER_PANEL(false));   
                                dispatch(SET_CONSULTING_PANEL(false));
                                dispatch(SET_MENU_BTN(false));
-                            }}>login</span>
-                            
+                            }}>login</span>                            
                         }
                     </div>
                 </div>
@@ -131,13 +130,16 @@ export default function Header() {
             {/* 모바일 메뉴 버튼 */}
                 <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
                     {
-                        ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode'? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>
+                       typeof window == 'undefined' ? null 
+                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>
                         : <img className="w-[40px] z-40" src="/hamburger.svg"/>
                     }   
                 </div>     
             {/* 다크모드 버튼 */}
             <div className="absolute left-[75px] lg:left-[100px]  top-[36px] lg:top-[70px] w[100px] lg:w-[750px] ">
-                { ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'
+
+                { typeof window == 'undefined' ? null :
+                  ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'
                 
                    ? <span className="text-3xl" onClick={()=> {
                         let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
