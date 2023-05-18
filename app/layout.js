@@ -1,9 +1,19 @@
 import { cookies } from 'next/dist/client/components/headers'
 import { Providers } from './Redux/provider'
+
+// import dynamic from 'next/dynamic'  // 다이나믹은 무엇일까? 서버/클라이언트 랜더링 선택할 수 있는?...
+// const Header = dynamic(()=> import('./components/Header'),{
+//   ssr: false
+// })
+// const Footer = dynamic(()=> import('./components/Footer'),{
+//   ssr: false
+// })
+
 import Footer from './components/Footer'
 import Header from './components/Header'
 import ReactQueryProvider from './components/ReactQueryProvider'
 import './globals.css'
+
 
 // import { Inter } from 'next/font/google'
 
@@ -15,15 +25,16 @@ import './globals.css'
 // }
 
 export default function RootLayout({ children }) {
-  
+
   let mode = cookies().get('mode')
-  console.log('layout.js 에서 출력됨 : ',mode?.value);
+  // console.log('layout.js  의 모드: ', mode.value)
 
   return (
     <html lang="ko">
-      <meta name="theme-color" content={`${ mode?.value != undefined && mode?.value == 'lightMode' ? '#ffffff' : '#000000' }`} />
+      <meta name="theme-color" content={`${ mode?.value !== undefined && mode?.value == 'lightMode' ? '#ffffff' : '#000000' }`} />
       <link rel="manifest" href="/manifest.json" />
-      <body className={`relative ${ mode?.value != undefined && mode?.value == 'lightMode' ? 'lightMode' : 'darkMode' }`}>
+
+      <body className={`relative ${ mode?.value !== undefined &&  mode?.value == 'darkMode' ? 'darkMode' : 'lightMode' }`}>      
         <Providers>
           <ReactQueryProvider>
             <Header />

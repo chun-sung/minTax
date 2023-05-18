@@ -10,7 +10,7 @@ export default function PageTop() {
         setFade('end2')
         setTimeout(()=> {
             document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-        }, 200)
+        }, 300)
         return () => setFade('')  // 애니메이션 초기화
     },[])
 
@@ -21,12 +21,13 @@ export default function PageTop() {
     // },[])
 
     return (<>
-            {/* 처음 쿠키 값은 whiteModefh 셋팅 된다. 그에 맞춰 hydration 에러를 처음에 피하기 위해..... */}
+            {/* 처음 쿠키 값은 lifhtMode 에 셋팅 된다. 그에 맞춰 hydration 에러를 처음에 피하기 위해.....  어쨌거나 처음에러만 피하자 이후 미스 매치는 어쩔수 없음*/}
         {
             <div className={`any absolute start2 ${fade} ${
-                typeof window == 'undefined' ? 'bg-white'
+                typeof window == 'undefined' ? 'bg-black'
                 : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-white' : 'bg-black'
-            } h-full w-full z-20`}></div>            
+                } h-full w-full z-10`}>                
+            </div>            
         }
     </>)
 }

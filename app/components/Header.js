@@ -10,12 +10,11 @@ import axios from "axios";
 import SuccessState from "./SuccessState";
 
 export default function Header() {
-
-    const { user } = useSelector(state => state.user);
     
     const [user_id, setUserId] = useState('')
-    const [password, setPassword] = useState('')
-    
+    const [password, setPassword] = useState('')     
+
+    const { user } = useSelector(state => state.user);
     const dispatch = useDispatch();
     const router = useRouter();
     
@@ -74,11 +73,13 @@ export default function Header() {
    // 쿠키에 최초 라이트 모드 값을 셋팅 한다.
     useEffect(()=> {
         let val = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]  // mode 가 없으면 '' 리턴 됨
+
+        // console.log(val == '')
+
         if(val == '') {
             document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
         }
     },[])
-
 
     return <>        
         {/* Seo */}        
@@ -142,42 +143,57 @@ export default function Header() {
                 <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
                     {
                        typeof window == 'undefined' ? null 
-                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>
-                        : <img className="w-[40px] z-40" src="/hamburger.svg"/>
+                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>  : <img className="w-[40px] z-40" src="/hamburger.svg"/>
+                       
                     }   
                 </div>     
 
             {/* 다크모드 버튼 */}
             <div className="absolute left-[75px] lg:left-[100px] top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">
 
-                { typeof window == 'undefined' ? null :
-                  ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'
-                
-                   ? <span className="text-2xl lg:text-3xl" onClick={()=> {
-                        let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
-                        if(mode == 'lightMode') {
-                            document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
-                            router.refresh()
-                        } else {
-                            document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
-                            router.refresh()
+                { 
+                   <span className="text-2xl lg:text-3xl" onClick={()=> {
+                        if(typeof window !== 'undefined'){
+
+                            let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
+
+                            // console.log('모드',mode)
+
+                            if(mode == '') {
+                                document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)                            
+                                router.refresh()
+                                setTimeout(()=> {
+                                    document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
+                                }, 300)
+                            } else if(mode == 'lightMode') {
+                                document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
+                                router.refresh()
+                                setTimeout(()=> {
+                                    if(typeof window !== 'undefined'){
+                                        document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
+                                    }
+                                }, 300)                                
+                            } else {
+                                document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+                                router.refresh()
+                                setTimeout(()=> {
+                                    if(typeof window !== 'undefined'){
+                                        document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
+                                    }
+                                }, 300)
+                            }
                         }
-                    }}>🌙</span>
-                    : <span className="inline-block text-2xl lg:text-3xl leading-[160%]" onClick={()=> {
-                        let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
-                        if(mode == 'lightMode') {
-                            document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
-                            router.refresh()
-                        } else {
-                            document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
-                            router.refresh()
+                    }}>{
+                        typeof window !== 'undefined' 
+                        ? 
+                         ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode'
+                        ?  '🌞' : '🌙' 
+                        : null
                         }
-                    }}>🌞</span>
+                    </span> 
                 }
                 </div>
-            </div>    
-
-            
+            </div>
 
             {/* 네비게이션 */}
             <nav className={user.menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
