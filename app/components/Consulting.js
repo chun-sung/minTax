@@ -139,7 +139,7 @@ export default function Consulting() {
                         nickName,
                         password, 
                     }
-                    fetch('https://min-tax-8h5x.vercel.app/api/member', {
+                    fetch('https://min-tax-8h5x.vercel.app/member', {
                         method: 'POST',
                         body: JSON.stringify(user)
                     })

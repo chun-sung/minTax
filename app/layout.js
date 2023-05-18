@@ -16,7 +16,7 @@ import './globals.css'
 
 export default function RootLayout({ children }) {
   let mode = cookies().get('mode')
-  console.log(mode?.value);
+  console.log('layout.js 에서 출력됨 : ',mode?.value);
 
   return (
     <html lang="ko">

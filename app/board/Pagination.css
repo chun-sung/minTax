@@ -39,6 +39,7 @@
     text-decoration: none;
     color: #080808;
     font-size: 1rem;
+    line-height: 130%;
   }
   
   ul.pagination li.active a {

@@ -147,8 +147,8 @@ export default function Detail() {
                   {/* 댓글 입력 패널 */}
 
                   { commentBtn == true ?
-                    <div className="absolute lg:absolute top-[-48px] lg:top-[-48px] lg:left-[40px] z-20 bg-gray-300 border-[1px] border-gray-300 p-2 shadow-md rounded-md w-full lg:w-[800px] m-auto">
-                      <input className="w-full p-1 rounded border border-indigo-400 outline-indigo-400 bg-gray-100 text-sm" onChange={(e) => setComment(e.target.value)} type="text" />
+                    <div className="absolute lg:absolute top-[-48px] lg:top-[-48px] lg:left-[40px] z-20 bg-gray-300 border-[1px] border-gray-300 p-1 shadow-md rounded-md w-full lg:w-[800px] m-auto">
+                      <input className="w-full pl-1 h-[3em] lg:h-[3em] leading-[3em] lg:leading-[3em] rounded border border-indigo-400 outline-indigo-400 bg-gray-100 text-[16px] lg:text-[18px]" onChange={(e) => setComment(e.target.value)} type="text" />
                       <div className="text-right">
                         <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-0 text-sm mr-2" onClick={()=> {
 
@@ -178,7 +178,9 @@ export default function Detail() {
                           }).catch(err => console.log(err))
 
                         }}>확인</button>
-                        <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> setCommentBtn(false)}>취소</button>
+                        <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white text-right rounded mt-2 mb-0 text-sm" onClick={()=> { 
+                          setComment('')
+                          setCommentBtn(false)}}>취소</button>
                       </div>
                     </div>
                     :null
