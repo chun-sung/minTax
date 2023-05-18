@@ -26,7 +26,7 @@ export default function SuccessLogin() {
                     const {user_id, nickName} = result.data;
                     dispatch(SET_LOGIN({user_id, nickName}))
                 } else {
-                    dispatch(SET_LOGOUT(null))
+                    dispatch(SET_LOGOUT(null)) 
                 }
                 
             }).catch( err => {                

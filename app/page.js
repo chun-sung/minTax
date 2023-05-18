@@ -91,7 +91,7 @@ export default function Home() {
             <p className="text-sm lg:text-3xl mt-10 lg:mt-0 ml-0 lg:ml-0 text-center lg:text-left "><span className="text-blue-600 font-bold lg:leading-[140%]">경영리포트</span>를 통해 <span className="text-blue-600 font-bold">사업장현황</span>을<br/> 실시간으로 파악하세요</p>
             <p className="text-[13px] mt-5 lg:text-base lg:ml-0 mb-0 text-gray-500 font-semibold"><span className="block lg:inline">매출매입잔액, 계좌잔액, 채권잔액, 월별 매출매입증감내역 등을</span><br />실시간으로 조회하여 사업장현황을 한눈에 확인할 수 있습니다.</p>
           </div>
-        </div>
+        </div> 
         
         <hr className="text-center w-[300px] lg:w-[800px] m-auto my-20" />
 

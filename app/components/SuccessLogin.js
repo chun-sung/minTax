@@ -36,7 +36,7 @@ export default function SuccessLogin() {
                 }                
             }).catch( err => {                
                 router.push('/notaccess')
-                dispatch(SET_LOGIN_WINDOW(true))
+                dispatch(SET_LOGIN_WINDOW(true)) 
                 console.log(err)
             })
                

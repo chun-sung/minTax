@@ -9,6 +9,17 @@
 }  
 
 
+/* 다크 모드 설정 */
+body.darkMode {
+  background-color: rgb(46, 42, 42); 
+  color: rgb(143, 141, 141);
+}
+.darkMode .header {
+  background-color: rgb(77, 70, 70);
+}
+
+
+
 /* 서서히 사라지기 */
 .start2 {
   opacity: 1;

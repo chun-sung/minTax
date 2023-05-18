@@ -1,3 +1,4 @@
+import { cookies } from 'next/dist/client/components/headers'
 import { Providers } from './Redux/provider'
 import Footer from './components/Footer'
 import Header from './components/Header'
@@ -14,11 +15,14 @@ import './globals.css'
 // }
 
 export default function RootLayout({ children }) {
+  let mode = cookies().get('mode')
+  console.log(mode.value);
+
   return (
     <html lang="ko">
       <meta name="theme-color" content="#ffffff" />
       <link rel="manifest" href="/manifest.json" />
-      <body className='relative'>
+      <body className={`relative ${ mode.value != undefined && mode.value == 'darkMode' ? ' darkMode' : 'lightMode' }`}>
         <Providers>
           <ReactQueryProvider>
             <Header />

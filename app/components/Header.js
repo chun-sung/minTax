@@ -1,14 +1,13 @@
 'use client'
 import Link from "next/link"
 import Seo from "./Seo"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Rsidebar from "./Rsidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_PANEL,SET_MENU_BTN } from "../Redux/reducers/userSlice";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessState from "./SuccessState";
-
 
 export default function Header() {
 
@@ -56,6 +55,31 @@ export default function Header() {
         })
         .catch((err) => console.log(err))
     }
+
+    // 다크모드 1 [로컬 스토리지] (구현 x 이해만하자)
+    // useEffect(()=> {
+    //     if(typeof window != 'undefined') {        // 현재 위치가 브라우저 인지 서버인지 판단하는 조건문
+    //         localStorage.setItem('mode', 'dark')  // 로컬 스토리지는 클라이언트 컴포넌트에서 출력가능
+    //     }
+    // },[]) // 로컬 스토리지 사용하면 HTML 마운트 이후 작동하기 때문에 라이트 모드가 1초간 보이는 문제있다.
+
+
+    // 다크모드 2 [cookies 저장]       
+    // document.cookie = 'mode=dark; max-age=3600;';   콘솔에서 실행하면 쿠키 저장됨
+    
+    //  서버 컴포넌트에서 출력 가능하다. - ** 쿠키는 서버 컴포넌트에서만 사용가능
+    //  console.log(cookies().get('mode'))
+
+
+   // 쿠키에 최초 라이트 모드 값을 셋팅 한다.
+    useEffect(()=> {
+        let val = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]  // mode 가 없으면 '' 리턴 됨
+        if(val == '') {
+            document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+        }
+    },[])
+
+
 
     return <>        
         {/* Seo */}        
@@ -106,13 +130,47 @@ export default function Header() {
 
             {/* 모바일 메뉴 버튼 */}
                 <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
-                    <img className="w-[40px] z-40" src="/hamburger.svg"/>
+                    {
+                        ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode'? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>
+                        : <img className="w-[40px] z-40" src="/hamburger.svg"/>
+                    }   
                 </div>     
+            {/* 다크모드 버튼 */}
+            <div className="absolute left-[75px] lg:left-[100px]  top-[36px] lg:top-[70px] w[100px] lg:w-[750px] ">
+                { ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'
+                
+                   ? <span className="text-3xl" onClick={()=> {
+                        let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
+                        if(mode == 'lightMode') {
+                            document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
+                            router.refresh()
+                        } else {
+                            document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+                            router.refresh()
+                        }
+                    }}>🌙</span>
+                    : <span className="text-3xl" onClick={()=> {
+                        let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
+                        if(mode == 'lightMode') {
+                            document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
+                            router.refresh()
+                        } else {
+                            document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+                            router.refresh()
+                        }
+                    }}>🌞</span>
+                }
+                </div>
             </div>    
+
+            
 
             {/* 네비게이션 */}
             <nav className={user.menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
-                    : `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100 z-20 rounded lg:rounded-none start end`}>
+                    : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? 
+                      `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-500 z-20 rounded lg:rounded-none start end` : `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100 z-20 rounded lg:rounded-none start end`
+                    }>
+
                 <div className="w-full lg:flex justify-between items-center gap-8 m-auto h-full lg:h-[61px] max-w-[1820px] pb-3 ">
                     <p className="text-black pt-3 lg:pb-0 lg:text-white  mt-3 mb-3 lg:mt-2  font-bold hover:text-blue-300 cursor-pointer"><Link href='/smart' onClick={()=> {
                         dispatch(SET_MENU_BTN(false))
