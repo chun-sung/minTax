@@ -11,11 +11,14 @@
 
 /* 다크 모드 설정 */
 body.darkMode {
-  background-color: rgb(46, 42, 42); 
+  background-color: rgb(44, 44, 44); 
   color: rgb(143, 141, 141);
 }
+body.darkMode h1,p {
+  color: rgb(151, 151, 151)
+}
 .darkMode .header {
-  background-color: rgb(77, 70, 70);
+  background-color: rgb(24, 23, 23);
 }
 
 

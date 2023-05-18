@@ -22,6 +22,11 @@ export default function PageTop() {
 
     return (<>
         {/* <div className={`any absolute lg:relative start2 ${fade} bg-white h-full w-full z-20`}></div> */}
-        <div className={`any absolute start2 ${fade} bg-white h-full w-full z-20`}></div>
+        {
+            <div className={`any absolute start2 ${fade} ${
+                typeof window == 'undefined' ? null 
+                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? 'bg-black' : 'bg-white'
+            } h-full w-full z-20`}></div>
+        }
     </>)
 }

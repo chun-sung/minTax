@@ -80,7 +80,6 @@ export default function Header() {
     },[])
 
 
-
     return <>        
         {/* Seo */}        
         <Seo title='Home | MTAX'/>
@@ -93,7 +92,13 @@ export default function Header() {
         {/* 로그인 & 로그아웃 Btn */}
         <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A]">    
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
-                <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}><img className="w-20 lg:w-32" src="/logo.svg" /></Link>
+                <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>
+                    {
+                        typeof window == 'undefined' ? null 
+                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-20 lg:w-32" src={`/logo_white.svg`} />
+                        : <img className="w-20 lg:w-32" src={`/logo.svg`} />                        
+                    }
+                </Link>
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
                     
         {/* 로그인 한 사용자 닉네임 표시*/}
@@ -136,12 +141,12 @@ export default function Header() {
                     }   
                 </div>     
             {/* 다크모드 버튼 */}
-            <div className="absolute left-[75px] lg:left-[100px]  top-[36px] lg:top-[70px] w[100px] lg:w-[750px] ">
+            <div className="absolute left-[75px] lg:left-[100px]  top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">
 
                 { typeof window == 'undefined' ? null :
                   ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'
                 
-                   ? <span className="text-3xl" onClick={()=> {
+                   ? <span className="text-2xl lg:text-3xl" onClick={()=> {
                         let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
                         if(mode == 'lightMode') {
                             document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
@@ -151,7 +156,7 @@ export default function Header() {
                             router.refresh()
                         }
                     }}>🌙</span>
-                    : <span className="text-3xl" onClick={()=> {
+                    : <span className="inline-block text-2xl lg:text-3xl leading-[160%]" onClick={()=> {
                         let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
                         if(mode == 'lightMode') {
                             document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
@@ -170,7 +175,7 @@ export default function Header() {
             {/* 네비게이션 */}
             <nav className={user.menu !== true ? `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100  start rounded lg:rounded-none`
                     : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? 
-                      `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-500 z-20 rounded lg:rounded-none start end` : `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100 z-20 rounded lg:rounded-none start end`
+                      `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-400 z-20 rounded lg:rounded-none start end` : `lg:bg-[#031D4A] px-10 lg:px-28 tracking-[0px] bg-slate-100 z-20 rounded lg:rounded-none start end`
                     }>
 
                 <div className="w-full lg:flex justify-between items-center gap-8 m-auto h-full lg:h-[61px] max-w-[1820px] pb-3 ">
