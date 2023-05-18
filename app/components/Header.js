@@ -92,13 +92,19 @@ export default function Header() {
         {/* 로그인 & 로그아웃 Btn */}
         <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A]">    
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
-                <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}>
+                {/* <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}> */}
                     {
                         typeof window == 'undefined' ? null 
-                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-20 lg:w-32" src={`/logo_white.svg`} />
-                        : <img className="w-20 lg:w-32" src={`/logo.svg`} />                        
+                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-20 lg:w-32" src={`/logo_white.svg`} onClick={()=>{ 
+                            router.push('/')
+                            dispatch(SET_MENU_BTN(false))}
+                        }/>
+                        : <img className="w-20 lg:w-32" src={`/logo.svg`} onClick={()=>{
+                                router.push('/')
+                                dispatch(SET_MENU_BTN(false))}
+                            }/>                        
                     }
-                </Link>
+                {/* </Link> */}
                 <div className="absolute ml-[180px] top-[53px] lg:top-[80px] w[100px] lg:w-[750px]  text-right">
                     
         {/* 로그인 한 사용자 닉네임 표시*/}
@@ -140,8 +146,9 @@ export default function Header() {
                         : <img className="w-[40px] z-40" src="/hamburger.svg"/>
                     }   
                 </div>     
+
             {/* 다크모드 버튼 */}
-            <div className="absolute left-[75px] lg:left-[100px]  top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">
+            <div className="absolute left-[75px] lg:left-[100px] top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">
 
                 { typeof window == 'undefined' ? null :
                   ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode'

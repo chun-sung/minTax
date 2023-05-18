@@ -21,12 +21,12 @@ export default function PageTop() {
     // },[])
 
     return (<>
-        {/* <div className={`any absolute lg:relative start2 ${fade} bg-white h-full w-full z-20`}></div> */}
+            {/* 처음 쿠키 값은 whiteModefh 셋팅 된다. 그에 맞춰 hydration 에러를 처음에 피하기 위해..... */}
         {
             <div className={`any absolute start2 ${fade} ${
-                typeof window == 'undefined' ? null 
-                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? 'bg-black' : 'bg-white'
-            } h-full w-full z-20`}></div>
+                typeof window == 'undefined' ? 'bg-white'
+                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-white' : 'bg-black'
+            } h-full w-full z-20`}></div>            
         }
     </>)
 }
