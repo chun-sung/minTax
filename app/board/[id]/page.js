@@ -1,13 +1,12 @@
 'use client'
 import PageTop from "@/app/components/PageTop";
 import Seo from "@/app/components/Seo";
-import { useParams } from "next/navigation";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import dayjs from "dayjs"             // 날짜 포맷 
 import { useSelector } from "react-redux";
 import { useQuery } from "@tanstack/react-query";
-
+ 
 export default function Detail() {
 
    const user = useSelector(state => state.user.user)
@@ -17,8 +16,17 @@ export default function Detail() {
     const [comment, setComment] = useState('');
     const [commentBtn, setCommentBtn] = useState(false);
 
+
+
     let id = useParams();
-    const router = useRouter();  
+    let router = useRouter();
+    
+    
+    // console.log(window.location)
+    const urlStr = window.location.href
+    let url = new URL(urlStr);
+    let urlparams = url.searchParams;
+    let pageNumber = urlparams.get('page');
 
        // tanstack/react-query 1            
     // const { isLoading, error, data, postQuery } = useQuery({
@@ -80,7 +88,8 @@ export default function Detail() {
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-full lg:h-full m-auto">
                 <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
-                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button>
+                    {/* <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button> */}
+                    <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.push(`/board?page=${pageNumber}`)}>뒤로</button>
                      { user.user_id == article[0]?.regist_userid ?
                      <> 
                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> { 

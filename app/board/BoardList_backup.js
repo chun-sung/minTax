@@ -4,9 +4,8 @@ import dayjs from "dayjs"             // 날짜 포맷
 import Pagination from "react-js-pagination"
 import './Pagination.css';
 import { useState, useEffect, useNavigate, useLocation } from "react";
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
-import Link from "next/link";
 // import { useRouter } from "next/router";
 
 
@@ -15,25 +14,18 @@ export default function BoardList() {
     const user = useSelector(state => state.user.user)
     
     // 라이브러리 설정 ( react-js-pagination )
-    const router = useRouter();              //  이동시 인자 값 전달 (nextjs v13 에서 안됨ㅠㅠ)              
-   
-        let urlStr
-        typeof window !== 'undefined' ? urlStr = window.location.href : null
-        let url = new URL(urlStr);
-        let urlparams = url.searchParams;
-        let pageNumber = urlparams.get('page');
-    
-    
+    const router = useRouter();     //  이동시 인자 값 전달               
+    const pathname = usePathname()
+
     const [posts, setPosts] = useState([]);       // 게시글 데이터
     const [limit, setLimit] = useState(10);       // 페이지당 표시할 게시글 수
-    const [page, setPage] = useState(pageNumber == null  ?  1 : parseInt(pageNumber)); // 페이지 번호
-    
-    // console.log(  urlparams?.get('page'))
+    const [page, setPage] = useState(1);// 페이지 번호
 
     const handlePageChange = page => {
         setPage(page);
     };
     const offset = (page - 1) * limit;           // 페이지의 시작점    
+
 
     // tanstack/react-query 
     const { isLoading, error, data, refetch, postQuery } = useQuery({
@@ -82,21 +74,14 @@ export default function BoardList() {
                                             </td>
                                             <td className="lg:text-md hover:text-blue-500 hover:font-bold">
                                                 
-                                                {/* <span className="inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
-                                                    router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}}, {article_idx: article_idx})}}>
-                                                    {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
-                                                                ? <span className="relative left-[10px] bg-blue-600 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-4 shadow-md" >New</span> 
-                                                                : null
-                                                            }
-                                                </span> */}
                                                 <span className="inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
-                                                    router.push(`/board/${article_idx}?page=${page}`,{state: {page:page}}, {article_idx: article_idx})}}>
+                                                    router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}}, {article_idx: article_idx})}}>
+
                                                     {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
                                                                 ? <span className="relative left-[10px] bg-blue-600 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-4 shadow-md" >New</span> 
                                                                 : null
                                                             }
                                                 </span>
-
                                                 
                                             </td >
                                             <td className="lg:text-md">

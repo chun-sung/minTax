@@ -45,4 +45,10 @@ export async function middleware(req) {
       }         
       return NextResponse.next()
    }     
+
+   // 모든 URL 경로에 걸리는 미들웨어???
+
+   // if(req.nextUrl.pathname.startsWith('/')){
+   //    // console.log('미들웨어 걸림', req.nextUrl.pathname )
+   // }
 }
