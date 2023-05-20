@@ -94,7 +94,7 @@ export default function Detail() {
                      <> 
                        <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> { 
      
-                        user?.user_id == null ? alert('로그인 부탁드립니다') : router.push(`/board/edit/${id.id}`)
+                        user?.user_id == null ? alert('로그인 부탁드립니다') : router.push(`/board/edit/${id.id}?page=${pageNumber}`)
      
                        }}>수정</button>
                        <button className="shadow-md inline-block p-1 px-3 bg-red-400 hover:bg-red-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=> {
@@ -111,7 +111,7 @@ export default function Detail() {
                            .then(res => { return res.json()})                     
                            .then(res => {
                               if(res.msg == 'success') {
-                                 router.push('/board')
+                                 router.push(`/board?page=${pageNumber}`)
                               }
                            }).catch(err => console.log(err))
                         }     

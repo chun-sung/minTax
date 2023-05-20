@@ -17,6 +17,12 @@ export default function Create() {
 
     let id = useParams();
 
+    // console.log(window.location)
+    const urlStr = window.location.href
+    let url = new URL(urlStr);
+    let urlparams = url.searchParams;
+    let pageNumber = urlparams.get('page');
+
     useEffect(()=> {
       fetch(`/api/board/edit`,{
          method: 'POST',
@@ -100,7 +106,7 @@ export default function Create() {
                       .then((res) => {                                 
                       if(res.msg == 'success') {
                         alert('수정 되었습니다')
-                        router.push('/board')
+                        router.push(`/board/${data.article_idx}?page=${pageNumber}`)
                       } else {
                         alert('수정 실패!')
                       }

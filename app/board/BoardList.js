@@ -35,15 +35,15 @@ export default function BoardList() {
     };
     const offset = (page - 1) * limit;           // 페이지의 시작점    
 
-    // tanstack/react-query 
-    const { isLoading, error, data, refetch, postQuery } = useQuery({
+    // tanstack/react-query 1 게시글 불러오는 쿼리
+    const { isLoading, error, data, postQuery } = useQuery({
         queryKey: ['posts'],        
         queryFn: () =>  fetch('/api/board').then(res => res.json()).then( res => { 
-            setPosts(res.result)
+            setPosts(res.result)            
             return res.result
         }),        
-    })   
-    
+    })
+  
     // useQuery 데이터 로딩중
     if(isLoading) return <div className="text-center mt-10 p-2 bg-red-400 text-white w-36 rounded-lg m-auto">Loading...</div>
 
@@ -74,7 +74,7 @@ export default function BoardList() {
                         <tbody className="text-sm lg:text-[16px]">
                             
                             {
-                                posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, nickName }, i) => {
+                                posts?.slice(offset, offset + limit).map(({ article_idx, title, regist_date, nickName, comment_length}, i) => {
                                     return (
                                         <tr className="border-b border-1 border-slate-200 hover:bg-gray-50" key={i} onClick={()=> {}}>
                                             <td className="p-1.5 lg:p-3">
@@ -89,10 +89,10 @@ export default function BoardList() {
                                                                 : null
                                                             }
                                                 </span> */}
-                                                <span className="inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
+                                                <span className="relative inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
                                                     router.push(`/board/${article_idx}?page=${page}`,{state: {page:page}}, {article_idx: article_idx})}}>
-                                                    {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
-                                                                ? <span className="relative left-[10px] bg-blue-600 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-4 shadow-md" >New</span> 
+                                                    {title} { comment_length == null  ? null : <b className="absolute ml-1 top-[2px] text-sm text-gray-700">({comment_length})</b> } { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
+                                                                ? <span className="relative left-[10px] bg-red-500 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-2 shadow-md" >New</span> 
                                                                 : null
                                                             }
                                                 </span>
