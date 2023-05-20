@@ -29,6 +29,14 @@ body.darkMode h1,p {
   -webkit-user-select: none;
   user-select: none;
 }
+body section {
+  -ms-user-select: none; 
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
 
 
 /* 서서히 사라지기 */
