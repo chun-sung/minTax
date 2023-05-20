@@ -68,7 +68,7 @@ export default function BoardList() {
                                 <th width="15%">No</th>
                                 <th width="50%">제목</th>
                                 <th width="10%">작성일</th>
-                                <th className="" width="25%">작성자</th>
+                                <th width="25%">작성자</th>
                             </tr>
                         </thead>  
                         <tbody className="text-sm lg:text-[16px]">
@@ -89,10 +89,10 @@ export default function BoardList() {
                                                                 : null
                                                             }
                                                 </span> */}
-                                                <span className="relative inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
+                                                <span className="relative inline-block text-left text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
                                                     router.push(`/board/${article_idx}?page=${page}`,{state: {page:page}}, {article_idx: article_idx})}}>
-                                                    {title} { comment_length == null  ? null : <b className="absolute ml-1 top-[2px] text-sm text-gray-700">({comment_length})</b> } { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
-                                                                ? <span className="relative left-[10px] bg-red-500 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-2 shadow-md" >New</span> 
+                                                    {title} { comment_length == null  ? null :<b className="top-[2px] text-sm text-gray-700">({comment_length})</b> } { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
+                                                                ? <span className=" bottom-[4px] lg:bottom-[-1px] left-[-25px] lg:right-[50px] bg-red-500 text-white rounded-2xl text-right font-bold text-[10px] lg:text-[12px] p-0.5 lg:p-0  px-0 lg:px-2 shadow-md" >New</span> 
                                                                 : null
                                                             }
                                                 </span>
