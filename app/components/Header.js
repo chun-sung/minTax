@@ -91,7 +91,7 @@ export default function Header() {
 
         {/* 헤더 */}
         {/* 로그인 & 로그아웃 Btn */}
-        <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A]">    
+        <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A] stop-dragging">    
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
                 {/* <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}> */}
                     {
