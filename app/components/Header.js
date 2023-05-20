@@ -8,7 +8,6 @@ import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessState from "./SuccessState";
-import PageTop from "./PageTop";
 
 export default function Header() {
     
@@ -163,7 +162,7 @@ export default function Header() {
                                     router.refresh()
                                     setTimeout(()=> {
                                         document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                    }, 300)                                
+                                    }, 100)                                
                             } else {
                                 document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
                                 setMode('lightMode')
@@ -171,7 +170,7 @@ export default function Header() {
                                 router.refresh()
                                 setTimeout(()=> {
                                     document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                }, 300)
+                                }, 100)
                             }
                         }                           
                         }}>{ mode == 'darkMode' ?  '🌞' : '🌙' }

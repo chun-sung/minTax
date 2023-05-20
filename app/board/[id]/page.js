@@ -81,7 +81,7 @@ export default function Detail() {
 
     return <>
         <Seo title='MinTax 게시판 | MinTAX'/>
-        <PageTop />
+        {/* <PageTop /> */}
         <h1 className="text-center mt-10 text-2xl stop-dragging">게시글</h1>
 
       {/* 게시글 출력창 */}
