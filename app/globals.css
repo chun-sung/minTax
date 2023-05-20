@@ -116,13 +116,13 @@ body footer {
     display: block;
     /* transform: blur; */
     /* transition: all 0.2s; */
-    transition: all 0.3s;
+    transition: all 0.1s;
   }
   .end2 {
       opacity: 0;
       display: block;
       /* transition: all 0.3s; */
-      transition: all 0.3s;
+      transition: all 0.1s;
       /* display: none; */
   }
 }
