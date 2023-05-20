@@ -15,11 +15,11 @@ export default function PageTop() {
         return () => setFade('')  // 애니메이션 초기화 (클린업펑션)
     },[])
   
-    // useEffect(()=>{
-    //     setTimeout(()=> {
-    //         document.querySelector('.any').classList.add('none') // 커버 삭제 display: 'none'
-    //     }, 200)
-    // },[])
+    useEffect(()=>{
+        setTimeout(()=> {
+            document.querySelector('.any').classList.add('none') // 커버 삭제 display: 'none'
+        }, 200)
+    },[])
 
     return (<>
             {/* 처음 쿠키 값은 lightMode 에 셋팅 된다. 그에 맞춰 hydration 에러를 처음에 피하기 위해.....  어쨌거나 처음에러만 피하자 이후 미스 매치는 어쩔수 없음*/}
