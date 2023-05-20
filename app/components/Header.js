@@ -8,11 +8,13 @@ import { SET_LOGOUT,SET_LOGIN, SET_LOGIN_WINDOW,SET_MEMBER_PANEL,SET_CONSULTING_
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import SuccessState from "./SuccessState";
+import PageTop from "./PageTop";
 
 export default function Header() {
     
     const [user_id, setUserId] = useState('')
     const [password, setPassword] = useState('')     
+    const [mode, setMode] = useState('')     
 
     const { user } = useSelector(state => state.user);
     const dispatch = useDispatch();
@@ -72,12 +74,17 @@ export default function Header() {
 
    // 쿠키에 최초 라이트 모드 값을 셋팅 한다.
     useEffect(()=> {
-        let val = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]  // mode 가 없으면 '' 리턴 됨
+        setMode(('; '+document.cookie).split(`; mode=`).pop().split(';')[0])     // mode 가 없으면 '' 리턴 됨                
 
-        // console.log(val == '')
-        
-        if(val == '') {
+        // console.log(('; '+document.cookie).split(`; mode=`).pop().split(';')[0])
+
+        // 초기값 비교는 state 함수가 비동기라 비교하여 적용할 수 없다. 비교는 쿠키에 직접 접근하는 코드로 비교해야 한다.
+        if(('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == '' || ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode') {
             document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+            setMode('lightMode')
+        } else {
+            // document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
+            setMode('darkMode')
         }
     },[])
 
@@ -90,13 +97,12 @@ export default function Header() {
         <div className={ user.login == true ? `absolute bg-neutral-700 w-full h-full opacity-70 z-10` : null} onClick={()=>dispatch(SET_LOGIN_WINDOW(false))}></div>        
 
         {/* 헤더 */}
-        {/* 로그인 & 로그아웃 Btn */}
+        {/* 로고 */}
         <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A] stop-dragging">    
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
                 {/* <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}> */}
-                    {
-                        typeof window == 'undefined' ? null 
-                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-20 lg:w-32" src={`/logo_white.svg`} onClick={()=>{ 
+                    {                        
+                        mode == 'darkMode' ? <img className="w-20 lg:w-32" src={`/logo_white.svg`} onClick={()=>{ 
                             router.push('/')
                             dispatch(SET_MENU_BTN(false))}
                         }/>
@@ -141,57 +147,35 @@ export default function Header() {
 
             {/* 모바일 메뉴 버튼 */}
                 <div className="hambuger hidden hover:bg-red-50 cursor-pointer hover:scale-105" onClick={()=>{dispatch(SET_MENU_BTN(!user.menu));dispatch(SET_LOGIN_WINDOW(false));dispatch(SET_MEMBER_PANEL(false));dispatch(SET_CONSULTING_PANEL(false))  }}>
-                    {
-                       typeof window == 'undefined' ? null 
-                        : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode' ? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>  : <img className="w-[40px] z-40" src="/hamburger.svg"/>
-                       
+                    {                       
+                        mode == 'darkMode' ? <img className="w-[40px] z-40" src="/hamburger_white.svg"/>  : <img className="w-[40px] z-40" src="/hamburger.svg"/>                       
                     }   
                 </div>     
 
             {/* 다크모드 버튼 */}
-            <div className="absolute left-[75px] lg:left-[100px] top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">
-
-                { 
-                   <span className="text-2xl lg:text-3xl" onClick={()=> {
-                        if(typeof window !== 'undefined'){
-
-                            let mode = ('; '+document.cookie).split(`; mode=`).pop().split(';')[0]
-
-                            // console.log('모드',mode)
-
-                            if(mode == '') {
-                                document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)                            
+                <div className="absolute left-[75px] lg:left-[100px] top-[38px] lg:top-[70px] w[100px] lg:w-[750px] ">                 
+                    <span className="text-2xl lg:text-3xl" onClick={()=> {                               
+                        if(typeof window != undefined ) {
+                            if(mode == 'lightMode') {                                    
+                                    document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
+                                    setMode('darkMode')
+                                    // console.log(mode)
+                                    router.refresh()
+                                    setTimeout(()=> {
+                                        document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
+                                    }, 300)                                
+                            } else {
+                                document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
+                                setMode('lightMode')
+                                // console.log(mode)
                                 router.refresh()
                                 setTimeout(()=> {
                                     document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                }, 400)
-                            } else if(mode == 'lightMode') {
-                                document.cookie = 'mode=darkMode; max-age=' + (3600 * 24 * 400)
-                                router.refresh()
-                                setTimeout(()=> {
-                                    if(typeof window !== 'undefined'){
-                                        document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                    }
-                                }, 400)     // 400정도 주어야 지 너무 짤게 주면 커버 삭제가 실패되는 듯하다.                        
-                            } else {
-                                document.cookie = 'mode=lightMode; max-age=' + (3600 * 24 * 400)
-                                router.refresh()
-                                setTimeout(()=> {
-                                    if(typeof window !== 'undefined'){
-                                        document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-                                    }
-                                }, 400)    // 400정도 주어야 지 너무 짤게 주면 커버 삭제가 실패되는 듯하다.
+                                }, 300)
                             }
-                        }
-                    }}>{
-                        typeof window !== 'undefined' 
-                        ? 
-                         ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'darkMode'
-                        ?  '🌞' : '🌙' 
-                        : null
-                        }
-                    </span> 
-                }
+                        }                           
+                        }}>{ mode == 'darkMode' ?  '🌞' : '🌙' }
+                    </span>                 
                 </div>
             </div>
 

@@ -16,17 +16,17 @@ export default function Detail() {
     const [comment, setComment] = useState('');
     const [commentBtn, setCommentBtn] = useState(false);
 
-
-
     let id = useParams();
     let router = useRouter();
     
-    
+  
     // console.log(window.location)
-    const urlStr = window.location.href
+
+    let urlStr = window.location.href
     let url = new URL(urlStr);
     let urlparams = url.searchParams;
     let pageNumber = urlparams.get('page');
+
 
        // tanstack/react-query 1            
     // const { isLoading, error, data, postQuery } = useQuery({
@@ -128,9 +128,9 @@ export default function Detail() {
                 <table className="w-full lg:w-[900px] border-l-[1px] border-r-[1px] m-auto">
                     <thead className="">
                         <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
-                            <th width="15%">No.{article[0]?.article_idx}</th>
-                            <th width="55%">{article[0]?.title}</th>
-                            <th width="10%">{dayjs(article[0]?.regist_date).format("YY.MM.DD")}</th>
+                            <th width="20%">No.{article[0]?.article_idx}</th>
+                            <th width="40%">{article[0]?.title}</th>
+                            <th width="20%">{dayjs(article[0]?.regist_date).format("YY.MM.DD")}</th>
                             <th width="20%" className="">{article[0]?.nickName}</th>
                         </tr>
                     </thead>

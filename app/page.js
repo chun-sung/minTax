@@ -10,7 +10,7 @@ export default function Home() {
   let installPrompt = null;
   
   useEffect(() => {
-    console.log('Listening for Install prompt');
+    // console.log('Listening for Install prompt');
     window.addEventListener('beforeinstallprompt', (e) => {
       // For older browsers
       e.preventDefault();

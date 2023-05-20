@@ -33,7 +33,8 @@ export default function BoardList() {
     const handlePageChange = page => {
         setPage(page);
     };
-    const offset = (page - 1) * limit;           // 페이지의 시작점    
+    const offset = (page - 1) * limit;           // 오프셋 - 페이지 안의 게시글의 시작점    
+    // console.log('오프셋', typeof offset)              // 0, 10, 20 (페이지 마다 10씩 증가 (1페이지에 10개 보여줄 때))
 
     // tanstack/react-query 1 게시글 불러오는 쿼리
     const { isLoading, error, data, postQuery } = useQuery({
@@ -65,10 +66,10 @@ export default function BoardList() {
                     <table className="w-full h-full lg:w-[900px] border-l-[1px] border-r-[1px] lg:border-0 m-auto">
                         <thead className="">
                             <tr className="text-sm  lg:text-[16px] lg:border-b border-2 bg-slate-300 h-10">
-                                <th width="15%">No</th>
-                                <th width="50%">제목</th>
-                                <th width="10%">작성일</th>
-                                <th width="25%">작성자</th>
+                                <th width="10%">No</th>
+                                <th width="60%">제목</th>
+                                <th width="15%">날짜</th>
+                                <th width="15%">이름</th>
                             </tr>
                         </thead>  
                         <tbody className="text-sm lg:text-[16px]">
@@ -81,29 +82,19 @@ export default function BoardList() {
                                                 {offset + i + 1 }
                                             </td>
                                             <td className="lg:text-md hover:text-blue-500 hover:font-bold">
-                                                
-                                                {/* <span className="inline-block text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
-                                                    router.push(`/board/${posts[offset + i].article_idx}`,{state: {page:page}}, {article_idx: article_idx})}}>
-                                                    {title} { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
-                                                                ? <span className="relative left-[10px] bg-blue-600 text-white rounded-md text-[10px] lg:text-[12px] p-1 px-2 lg:px-4 shadow-md" >New</span> 
-                                                                : null
-                                                            }
-                                                </span> */}
                                                 <span className="relative inline-block text-left text-[15px] lg:text-[16px] p-1 w-full cursor-pointer" onClick={()=> {
                                                     router.push(`/board/${article_idx}?page=${page}`,{state: {page:page}}, {article_idx: article_idx})}}>
-                                                    {title} { comment_length == null  ? null :<b className="top-[2px] text-sm text-gray-700">({comment_length})</b> } { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
-                                                                ? <span className=" bottom-[4px] lg:bottom-[-1px] left-[-25px] lg:right-[50px] bg-red-500 text-white rounded-2xl text-right font-bold text-[10px] lg:text-[12px] p-0.5 lg:p-0  px-0 lg:px-2 shadow-md" >New</span> 
+                                                    {title} { comment_length == null  ? null :<b className="top-[2px] text-sm text-blue-500">({comment_length})</b> } { dayjs(regist_date).format('YY.MM.DD') == dayjs().format('YY.MM.DD') 
+                                                                ? <span className=" bottom-[4px] lg:bottom-[-1px] left-[-25px] lg:right-[50px] bg-red-500 text-white rounded-2xl text-right font-bold text-[10px] lg:text-[12px] lg:p-0.5 p-1 lg:px-2 shadow-md" >New</span> 
                                                                 : null
                                                             }
-                                                </span>
-
-                                                
+                                                </span>                                                
                                             </td >
                                             <td className="lg:text-md">
-                                                <span className="text-[16px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
+                                                <span className="text-[12px] lg:text-[16px]">{dayjs(regist_date).format("YY.MM.DD")}</span>
                                             </td>
                                             <td className="">
-                                                <span className="text-[16px] lg:text-[16px]">{nickName}</span>
+                                                <span className="text-[12px] lg:text-[16px]">{nickName}</span>
                                             </td>
                                         </tr>
                                 )})

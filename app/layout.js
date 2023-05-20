@@ -27,14 +27,13 @@ import './globals.css'
 export default function RootLayout({ children }) {
 
   let mode = cookies().get('mode')
-  // console.log('layout.js  의 모드: ', mode.value)
 
   return (
     <html lang="ko">
-      <meta name="theme-color" content={`${ mode?.value !== undefined && mode?.value == 'lightMode' ? '#ffffff' : '#000000' }`} />
+      <meta name="theme-color" content={`${ mode?.value == undefined || mode?.value == 'lightMode' ? '#ffffff' : '#000000' }`} />
       <link rel="manifest" href="/manifest.json" />
 
-      <body className={`relative ${ mode?.value !== undefined &&  mode?.value == 'darkMode' ? 'darkMode' : 'lightMode' }`}>      
+      <body className={`relative ${ mode?.value == undefined ||  mode?.value == 'lightMode' ? 'lightMode' : 'darkMode' }`}>      
         <Providers>
           <ReactQueryProvider>
             <Header />
