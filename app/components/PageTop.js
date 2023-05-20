@@ -26,7 +26,7 @@ export default function PageTop() {
         {
             <div className={`any absolute start2 ${fade} ${
                 typeof window == 'undefined' ? 'bg-white'
-                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-red-400' : 'bg-red-400'
+                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-white' : 'bg-black'
                 } h-full w-full z-10`}>                
             </div>        
         }
