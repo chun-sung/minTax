@@ -5,7 +5,7 @@ export default function Himoney() {
     return <>
         <Seo title='고소득자 Plan | MTAX'/>      
         <PageTop />  
-        <h1 className="text-center mt-10 text-2xl">고소득자 텍스플랜</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">고소득자 텍스플랜</h1>
         <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">
                 <div className="flex flex-col text-center w-full mb-20">

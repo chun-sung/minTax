@@ -5,7 +5,7 @@ export default function Renew() {
     return <>
         <Seo title='세무상담 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">세무상담</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">세무상담</h1>
 
         <section className="text-gray-600 body-font relative">
             <div className="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">

@@ -18,7 +18,7 @@ export default function Create() {
     return <>
         <Seo title='글작성 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">글작성</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">글작성</h1>
 
         <div className="article__section mt-8 bg-neutral-00 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-[600px] lg:h-[600px] m-auto">
@@ -52,7 +52,7 @@ export default function Create() {
                                     </tr>                            
                                 </tbody>
                 </table>
-                <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
+                <div className="text-right mb-1 w-full lg:w-[900px] m-auto stop-dragging">
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mt-2 text-sm" onClick={()=> router.back()}>뒤로</button>
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white rounded mr-1 mb-0 text-sm" onClick={()=>{
                       

@@ -5,7 +5,7 @@ export default function Susu() {
     return <>
         <Seo title='수수료 안내 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">수수료 안내</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">수수료 안내</h1>
 
         <section className="text-gray-600 body-font">
             <div className="container px-5 py-24 mx-auto">

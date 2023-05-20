@@ -82,12 +82,12 @@ export default function Detail() {
     return <>
         <Seo title='MinTax 게시판 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">게시글</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">게시글</h1>
 
       {/* 게시글 출력창 */}
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
             <div className="article__wrapper w-full lg:w-[1000px] h-full lg:h-full m-auto">
-                <div className="text-right mb-2 w-full lg:w-[900px] m-auto">
+                <div className="text-right mb-2 w-full lg:w-[900px] m-auto stop-dragging">
                     {/* <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.back()}>뒤로</button> */}
                     <button className="shadow-md inline-block p-1 px-3 bg-gray-400 hover:bg-gray-600 text-white rounded mr-1 mb-0 text-sm" onClick={() => router.push(`/board?page=${pageNumber}`)}>뒤로</button>
                      { user.user_id == article[0]?.regist_userid ?
@@ -143,7 +143,7 @@ export default function Detail() {
                 
               {/* 댓글 입력 버튼 */}
 
-                  <div className="text-right mb-1 w-full lg:w-[900px] m-auto">
+                  <div className="text-right mb-1 w-full lg:w-[900px] m-auto stop-dragging">
                     <button className="shadow-md inline-block p-1 px-3 bg-blue-400 hover:bg-blue-600 text-white text-right rounded mt-2 mb-3 text-sm" onClick={()=>{
                       user.user_id == null ? alert('로그인 부탁드립니다.') 
                       : setCommentBtn(true)
@@ -207,7 +207,7 @@ export default function Detail() {
             { article[0]?.comment_idx !==  null 
 
               ? article.map(( item, i) => {                     
-                  return <div className="text-center mb-2 text-sm bg-orange-000 w-full lg:w-[900px] m-auto" key={i}>
+                  return <div className="text-center mb-2 text-sm bg-orange-000 w-full lg:w-[900px] m-auto stop-dragging" key={i}>
                             <span className="inline-block bg-zinc-300 p-0.5 lg:p-1 px-3 lg:px-4 rounded-xl">{item.comment}</span>
                             <span className="text-[12px] lg:text-[12px] ml-2 mr-2 rounded-full bg-indigo-400 text-white py-[1px] px-2 pb-0.5 leading-[10%]">{item.nickName_comment}</span>
                             <span className="text-[12px] lg:text-[12px]">{dayjs(item.regist_date_comment).format('YY.MM.DD')}</span>
@@ -231,7 +231,7 @@ export default function Detail() {
                             }
                         </div>
                 })                  
-              : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">첫 번째 댓글을 남겨보세요</span>
+              : <span className="block w-60 text-center text-gray-400 bg-gray-200 m-auto rounded-full p-1 mt-3 mb-3">댓글이 없습니다</span>
             }
       </div>
 

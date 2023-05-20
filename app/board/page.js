@@ -8,7 +8,7 @@ export default function About() {
     return <>
         <Seo title='게시판 | MinTAX'/>
         <PageTop />
-        <h1 className="text-center mt-10 text-2xl">고객 게시판</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">고객 게시판</h1>
 
       <BoardList />
 
