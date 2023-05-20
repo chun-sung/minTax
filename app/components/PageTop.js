@@ -11,14 +11,14 @@ export default function PageTop() {
 
         setTimeout(()=> {
             document.querySelector('.any')?.classList.add('none') // 커버 삭제 display: 'none'
-        }, 300)
+        }, 500)
         return () => setFade('')  // 애니메이션 초기화 (클린업펑션)
     },[])
   
     useEffect(()=>{
         setTimeout(()=> {
             document.querySelector('.any').classList.add('none') // 커버 삭제 display: 'none'
-        }, 200)
+        }, 500)
     },[])
 
     return (<>
@@ -26,7 +26,7 @@ export default function PageTop() {
         {
             <div className={`any absolute start2 ${fade} ${
                 typeof window == 'undefined' ? 'bg-white'
-                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-white' : 'bg-black'
+                : ('; '+document.cookie).split(`; mode=`).pop().split(';')[0] == 'lightMode' ? 'bg-red-400' : 'bg-red-400'
                 } h-full w-full z-10`}>                
             </div>        
         }
