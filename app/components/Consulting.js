@@ -40,7 +40,7 @@ export default function Consulting() {
     {/* 상담 신청 패널 */}
     <div className="relative m-auto lg:w-[520px]">
     { user.member_consul == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10 rounded">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10 rounded stop-dragging">
             <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-xl font-bold stop-dragging">상담 신청</span><br />
@@ -139,7 +139,7 @@ export default function Consulting() {
                         nickName,
                         password, 
                     }
-                    fetch('https://min-tax-8h5x.vercel.app/api/member', {
+                    fetch('http://localhost:3000/api/member', {
                         method: 'POST',
                         body: JSON.stringify(user)
                     })
