@@ -103,19 +103,19 @@ export default function Consulting() {
             </div>
             <div className="lg:ml-[-20px] lg:w-96 mb-3">   
                 <form>
-                    <div className="relative sm:mb-0 flex-grow w-full mb-2  ml-[2px]">
+                    <div className="relative sm:mb-0 flex-grow w-full mb-2  ml-[0-px]">
                         <label htmlFor="id" className="leading-7 text-[12px] text-gray-600 mr-4">ID</label>
                         <input autoComplete="off" type="text" id="id" name="id" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setUserId(e.target.value)} />
                     </div>
-                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-5px]">
+                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-6px]">
                         <label htmlFor="nickName" className="leading-7 text-[12px] text-gray-600 mr-4">이름</label>
                         <input autoComplete="off" type="text" id="nickName" name="nickName" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setNickName(e.target.value)} />
                     </div>
-                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-14px]">
+                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-13px]">
                         <label htmlFor="pw" className="leading-7 text-[12px] text-gray-600 mr-2">비밀번호</label>
                         <input autoComplete="off" type="password" id="pw" name="password" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
-                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-14px]">
+                    <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-13px]">
                         <label htmlFor="name2" className="leading-7 text-[12px] text-gray-600 mr-2">비번확인</label>
                         <input autoComplete="off" type="password" id="name2" name="password2" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setPwCheck(e.target.value)}/>
                     </div>
