@@ -40,7 +40,7 @@ export default function Consulting() {
     {/* 상담 신청 패널 */}
     <div className="relative m-auto lg:w-[520px]">
     { user.member_consul == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10 rounded stop-dragging">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-92 shadow-2xl z-10 rounded stop-dragging">
             <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
                 <span className="text-md stop-dragging">문의 내용</span><br />
@@ -57,7 +57,7 @@ export default function Consulting() {
                     </div>
                 </form>
             </div>
-            <div className="mt-2 text-center text-sm">
+            <div className="mt-2 text-center text-sm mb-1">
                 <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
 
                     if(title == '') {
