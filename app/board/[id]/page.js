@@ -82,7 +82,7 @@ export default function Detail() {
     return <>
         <Seo title='MinTax 게시판 | MinTAX'/>
         {/* <PageTop /> */}
-        <h1 className="text-center mt-10 text-2xl stop-dragging">게시글</h1>
+        <h1 className="text-center mt-10 text-2xl stop-dragging">{article[0]?.title}</h1>
 
       {/* 게시글 출력창 */}
         <div className="article__section mt-8 bg-neutral-000 p-1 lg:p-10 w-full lg:w-[1200px] m-auto">
@@ -129,9 +129,9 @@ export default function Detail() {
                     <thead className="">
                         <tr className=" text-[13px] lg:text-md lg:border-b border-2 bg-slate-300 h-10">
                             <th width="20%">No.{article[0]?.article_idx}</th>
-                            <th width="40%">{article[0]?.title}</th>
+                            <th width="40%"></th>
                             <th width="20%">{dayjs(article[0]?.regist_date).format("YY.MM.DD")}</th>
-                            <th width="20%" className="">{article[0]?.nickName}</th>
+                            <th width="30%" className="">{article[0]?.nickName}</th>
                         </tr>
                     </thead>
                 </table>

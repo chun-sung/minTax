@@ -44,7 +44,7 @@ export default function Header() {
                 const { user_id, nickName } = data;
                 dispatch(SET_LOGIN({user_id, nickName}))
                 dispatch(SET_LOGIN_WINDOW(false))
-                router.push('/mypage')
+                // router.push('/mypage')          // mypage 이동이 불편할 수도...
             } else if(data.msg == 'pw_fail') {
 
                 alert('비밀번호가 틀립니다.')
@@ -97,7 +97,7 @@ export default function Header() {
 
         {/* 헤더 */}
         {/* 로고 */}
-        <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A] stop-dragging">    
+        <div className="fixed w-full z-50 bg-white border-b-[1px] lg:border-[1px] border-b-[#031D4A] stop-dragging">
             <div className="header flex justify-center items-center gap-1 lg:p-5 m-auto h-full lg:h-[112px] z-50 ">    
                 {/* <Link href='/' onClick={()=>{dispatch(SET_MENU_BTN(false))}}> */}
                     {                        
@@ -210,34 +210,34 @@ export default function Header() {
             </nav>      
         
         {/* 로그인 패널 */}        
-        <div className="relative m-auto lg:w-[420px] ">
+        <div className="relative m-auto lg:w-[420px]">
         {
         user.login == true ? 
             <div className={user.login !== true ? null 
-                :  "absolute border-stone-800 border-[1px] bg-gray-100  w-full lg:w-[420px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-64 shadow-2xl z-10 rounded"
+                :  "absolute border-stone-800 border-[1px] bg-gray-100  w-full lg:w-[380px] lg:mt-10 top-[40px] lg:top-[200px] p-5 h-58 shadow-2xl z-10 rounded"
                 }>
-                <div className="text-center">                   
-                    <span className="text-xl font-bold">Login</span><br /><br />
+                <div className="text-center mb-2">                   
+                    <span className="text-md">Welcome to MinTax</span>
                 </div>
-                <div className="lg:ml-[-10px] lg:w-96 mb-5  text-center">   
+                <div className="lg:ml-[-28px] lg:w-96 mb-3  text-center">   
                     <form>
                         <div className="relative sm:mb-0 flex-grow w-full mb-2">
-                            <label htmlFor="full-name" className="leading-7 text-sm text-gray-600 mr-2">ID </label>
+                            <label htmlFor="full-name" className="leading-7 text-[12px] text-gray-600 mr-2">ID </label>
                             <input type="text" id="full-name" name="user_id" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-md outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setUserId(e.target.value)} />
                         </div>
                         <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-4px]">
-                            <label htmlFor="name" className="leading-7 text-sm text-gray-600 mr-2">PW </label>
+                            <label htmlFor="name" className="leading-7 text-[12px] text-gray-600 mr-2">PW </label>
                             <input type="password" id="name" name="password" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onKeyUp={()=>{ window.event.keyCode === 13 ? loginEnter() : null }} onChange={(e) => setPassword(e.target.value)}/>
                         </div>
                     </form>
                 </div>
-                <div className="mt-2 ml-6 text-center">
-                    <button className="p-2 px-5 rounded-sm mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> { return loginEnter()
+                <div className="mt-2 ml-6 text-center text-sm">
+                    <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> { return loginEnter()
 
                         
                     }}>확인</button>
 
-                    <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> {
+                    <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> {
                         dispatch(SET_LOGIN_WINDOW(false))
                     }}>취소</button>
                 </div>
@@ -246,11 +246,9 @@ export default function Header() {
         }        
         </div> 
         </div>
-        <div className="h-[60px] lg:h-[170px]"></div>       
-
+        <div className="h-[78px] lg:h-[174px]"></div>               
         {/* 하단 오른쪽 사이드 메뉴 */}
         <Rsidebar />
-        
         <style jsx>{`
             .user_id:hover .logOutBtn {
                 display: inline;

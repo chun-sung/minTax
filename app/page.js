@@ -50,7 +50,7 @@ export default function Home() {
   return (
     <div className="nexon start2">      
         <PageTop />        
-        <Seo title='Home | MinTAX' />   
+        <Seo title='Home | MinTAX' />           
         {/* 메인 이미지 */}
         <div className="bg-[url('/main_bg.png')] w-1200 m-auto h-72 lg:max-w-[1920px] lg:h-[585px] bg-left-bottom lg:bg-top lg:bg-cover lg:bg-no-repeat relative z-0 stop-dragging">
 
@@ -62,7 +62,7 @@ export default function Home() {
               언제 어디서든 모바일 앱 하나로 사업현황을 실시간으로 관리<br/>다년간의 노하우로 스마트한 서비스제공.
             </p>
           </div>
-          <div className="pwaBtn hover:border-2 border-red-200  rounded-full bg-white px-4 installPwa w-9 h-9 bg-[url('/pwaInstalBtn.png')] bg-cover absolute bottom-[5px] right-[5px] lg:bottom-[5px] lg:right-[5px] cursor-pointer" onClick={installApp}></div>
+          <div className="pwaBtn hover:border-2 border-red-200  rounded-full bg-white px-4 installPwa w-9 h-9 bg-[url('/pwaInstalBtn.png')] bg-cover absolute bottom-[10px] right-[10px] lg:bottom-[10px] lg:right-[10px] cursor-pointer" onClick={installApp}></div>
           <p className="pwa bg-white rounded-md w-70 h-12 text-center text-blue-400 px-2 border-2 border-red-500 p-1 absolute bottom-[50px] right-[30px] text-[12px]">클릭 하면 <span className="font-bold text-red-500">앱</span>(App)을<br/> 설치할 수 있어요</p>
         </div>
 

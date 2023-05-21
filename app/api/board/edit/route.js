@@ -12,6 +12,8 @@ export async function POST(req) {
       return new Response(JSON.stringify(...result))
     } catch(err) {
       console.log(err)
-    }
+    } finally {
+      pool.end()
+  }
 }
   

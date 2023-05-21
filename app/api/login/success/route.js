@@ -41,7 +41,9 @@ export async function GET(req) {
 
     } catch (err) {
         console.log(err)
-    }           
+    } finally {
+        pool.end()
+    }  
 }
 
 

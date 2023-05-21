@@ -43,7 +43,7 @@ export default function Consulting() {
         <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:mt-0 top-[-348px] lg:top-[-482px] p-3 h-96 shadow-2xl z-10 rounded stop-dragging">
             <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
-                <span className="text-xl font-bold stop-dragging">상담 신청</span><br />
+                <span className="text-md stop-dragging">문의 내용</span><br />
             </div>
             <div className="w-full mb-2">   
                 <form>
@@ -53,12 +53,12 @@ export default function Consulting() {
                     </div>
                     <div className="relative sm:mb-0 flex-grow w-full mt-2">
                         <label htmlFor="name" className="leading-7 text-sm text-gray-900"></label>
-                        <textarea autoComplete="off" placeholder="상담 내용" type="text" id="name" name="telNumber" className="resize-none w-full h-[210px] bg-gray-300 bg-opacity-40 rounded border border-gray-700 text-sm focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent outline-none text-gray-700 px-1 leading-normal transition-colors duration-200 ease-in-out" onChange={(e) => setContent(e.target.value)}/>
+                        <textarea autoComplete="off" placeholder="내용" type="text" id="name" name="telNumber" className="resize-none w-full h-[210px] bg-gray-300 bg-opacity-40 rounded border border-gray-700 text-sm focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent outline-none text-gray-700 px-1 leading-normal transition-colors duration-200 ease-in-out" onChange={(e) => setContent(e.target.value)}/>
                     </div>
                 </form>
             </div>
-            <div className="mt-2 text-center">
-                <button className="p-2 px-5 rounded-sm mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
+            <div className="mt-2 text-center text-sm">
+                <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
 
                     if(title == '') {
                         alert('제목을 입력하세요')
@@ -86,7 +86,7 @@ export default function Consulting() {
                     dispatch(SET_CONSULTING_PANEL(false))
                     
                 }}>확인</button>
-                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
+                <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null
@@ -94,35 +94,35 @@ export default function Consulting() {
         </div>
 
     {/* 회원 가입 패널 */}
-    <div className="relative m-auto lg:w-[420px] ">
+    <div className="relative m-auto lg:w-[420px]">
     { user.member_panel == true ? 
-        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[420px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10 rounded">
-            <div className="text-center">
+        <div className="absolute border-stone-400 border-[1px] bg-gray-100 w-full lg:w-[405px] lg:mt-10 lg:left-[0px] top-[-348px] lg:top-[-482px] p-5 h-180 shadow-2xl z-10 rounded">
+            <div className="text-center mb-2">
                 {/* <span>전화번호 입력 후 확인을 눌러주세요</span><br /> */}
-                <span className="text-xl font-bold stop-dragging">회원가입</span><br /><br />
+                <span className="text-md stop-dragging">Welcome to Register</span>
             </div>
-            <div className="lg:ml-[-10px] lg:w-96 mb-5">   
+            <div className="lg:ml-[-20px] lg:w-96 mb-3">   
                 <form>
                     <div className="relative sm:mb-0 flex-grow w-full mb-2  ml-[2px]">
-                        <label htmlFor="id" className="leading-7 text-sm text-gray-600 mr-4">ID</label>
+                        <label htmlFor="id" className="leading-7 text-[12px] text-gray-600 mr-4">ID</label>
                         <input autoComplete="off" type="text" id="id" name="id" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setUserId(e.target.value)} />
                     </div>
                     <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-5px]">
-                        <label htmlFor="nickName" className="leading-7 text-sm text-gray-600 mr-4">이름</label>
+                        <label htmlFor="nickName" className="leading-7 text-[12px] text-gray-600 mr-4">이름</label>
                         <input autoComplete="off" type="text" id="nickName" name="nickName" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setNickName(e.target.value)} />
                     </div>
                     <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-14px]">
-                        <label htmlFor="pw" className="leading-7 text-sm text-gray-600 mr-2">비밀번호</label>
+                        <label htmlFor="pw" className="leading-7 text-[12px] text-gray-600 mr-2">비밀번호</label>
                         <input autoComplete="off" type="password" id="pw" name="password" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setPassword(e.target.value)}/>
                     </div>
                     <div className="relative sm:mb-0 flex-grow w-full mt-2 ml-[-14px]">
-                        <label htmlFor="name2" className="leading-7 text-sm text-gray-600 mr-2">비번확인</label>
+                        <label htmlFor="name2" className="leading-7 text-[12px] text-gray-600 mr-2">비번확인</label>
                         <input autoComplete="off" type="password" id="name2" name="password2" className="w-56 bg-gray-300 bg-opacity-40 rounded border border-gray-700 focus:border-indigo-100 focus:ring-2 focus:ring-indigo-400 focus:bg-transparent text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" onChange={(e) => setPwCheck(e.target.value)}/>
                     </div>
                 </form>
             </div>
-            <div className="mt-2 ml-0 text-center">
-                <button className="p-2 px-5 rounded-sm mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
+            <div className="mt-2 ml-0 text-center text-sm">
+                <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
 
                     if(user_id.length == 0) {                        
                         alert('ID를 입력하세요')
@@ -156,7 +156,7 @@ export default function Consulting() {
                     }).catch(err => console.log(err))
                     
                 }}>확인</button>
-                <button className="p-2 px-5 rounded-sm bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>
+                <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null   

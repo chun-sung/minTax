@@ -61,7 +61,6 @@ export async function POST(req) {
         console.log(err)
         // throw err
     } finally {
-
         pool.end()
     }
 }
