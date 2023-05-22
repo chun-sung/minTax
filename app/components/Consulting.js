@@ -58,7 +58,7 @@ export default function Consulting() {
                 </form>
             </div>
             <div className="mt-2 text-center text-sm mb-1">
-                <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
+                <button className="p-1.5 px-4 shadow rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
 
                     if(title == '') {
                         alert('제목을 입력하세요')
@@ -86,7 +86,7 @@ export default function Consulting() {
                     dispatch(SET_CONSULTING_PANEL(false))
                     
                 }}>확인</button>
-                <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
+                <button className="p-1.5 px-4 shadow rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_CONSULTING_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null
@@ -122,7 +122,7 @@ export default function Consulting() {
                 </form>
             </div>
             <div className="mt-2 ml-0 text-center text-sm">
-                <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
+                <button className="p-1.5 px-4 shadow rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> {
 
                     if(user_id.length == 0) {                        
                         alert('ID를 입력하세요')
@@ -156,7 +156,7 @@ export default function Consulting() {
                     }).catch(err => console.log(err))
                     
                 }}>확인</button>
-                <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>
+                <button className="p-1.5 px-4 rounded shadow bg-red-500 hover:bg-red-300 text-white" onClick={()=> dispatch(SET_MEMBER_PANEL(false))}>취소</button>
             </div>
         </div> 
         : null   

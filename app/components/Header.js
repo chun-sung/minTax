@@ -116,7 +116,7 @@ export default function Header() {
         {/* 로그인 한 사용자 닉네임 표시*/}
                     <div className="relative inline-block text-[12px] lg:text-[16px] ml-[-15px] lg:ml-[-30px] top-[-5px] lg:top-[3px] text-neutral-500">{user.nickName}
                         { user.user_id !== null ?
-                            <span className="logOutBtn font-bold border-[1px] border-red-500 rounded-xl hover:bg-red-400 hover:text-white bg-white  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
+                            <span className="logOutBtn shadow font-bold rounded border-[0.5px] hover:bg-red-400 hover:text-white bg-white active:bg-white active:text-red-500  absolute px-2 lg:px-3 py-1 lg:py-0.5 text-red-500 right-[-60px] lg:right-[-80px] top-[-10px] lg:top-[-5px]  cursor-pointer" onClick={()=> {
                                 if(confirm('로그아웃 하시겠습니까?')) {
                                     axios({
                                         url:"https://min-tax-8h5x.vercel.app/api/logout",
@@ -133,7 +133,7 @@ export default function Header() {
                                     }).catch(err => console.log(err))
                                 }
                             }}>logout</span>
-                            : <span className="logOutBtn font-bold absolute border-[1px] border-red-500 rounded-xl text-white bg-red-400  hover:bg-white px-3 lg:px-5  py-1 lg:py-0.5 hover:text-red-500 right-[-80px] lg:right-[-83px] top-[-23px] lg:top-[-px] cursor-pointer" onClick={()=> {
+                            : <span className="logOutBtn shadow font-bold absolute rounded text-white bg-red-400 active:bg-red-500 active:text-white hover:border-[0.5px] hover:bg-white px-3 lg:px-5  py-1 lg:py-0.5 hover:text-red-500 right-[-80px] lg:right-[-83px] top-[-23px] lg:top-[-px] cursor-pointer" onClick={()=> {
                                 // signIn()
                                dispatch(SET_LOGIN_WINDOW(true)); 
                                dispatch(SET_MEMBER_PANEL(false));   
@@ -232,12 +232,12 @@ export default function Header() {
                     </form>
                 </div>
                 <div className="mt-2 ml-6 text-center text-sm">
-                    <button className="p-1.5 px-4 rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> { return loginEnter()
+                    <button className="p-1.5 px-4 shadow rounded mr-2 bg-blue-500 hover:bg-blue-400 text-white" onClick={()=> { return loginEnter()
 
                         
                     }}>확인</button>
 
-                    <button className="p-1.5 px-4 rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> {
+                    <button className="p-1.5 px-4 shadow rounded bg-red-500 hover:bg-red-300 text-white" onClick={()=> {
                         dispatch(SET_LOGIN_WINDOW(false))
                     }}>취소</button>
                 </div>
