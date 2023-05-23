@@ -3,7 +3,11 @@ import BoardList from "./BoardList";
 import PageTop from "../components/PageTop";
 import Seo from "../components/Seo";
 
-export default function About() {
+export default function Board() {
+
+  useEffect(()=>{
+      window.scrollTo(0,0)  // 최상단 이동                            
+  },[])
 
     return <>
         <Seo title='게시판 | MinTAX'/>
