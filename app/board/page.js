@@ -1,19 +1,15 @@
-// import Pagination from "react-js-pagination";
 import BoardList from "./BoardList";
-import PageTop from "../components/PageTop";
 import Seo from "../components/Seo";
+import PageTopPure from "../components/PageTopPure";
 
 export default function Board() {
-
-  useEffect(()=>{
-      window.scrollTo(0,0)  // 최상단 이동                            
-  },[])
-
+  
     return <>
         <Seo title='게시판 | MinTAX'/>
         {/* <PageTop /> */}
         <h1 className="text-center mt-10 text-2xl stop-dragging">고객 게시판</h1>
 
+      <PageTopPure />
       <BoardList />
 
         <section className="text-gray-600 body-font">
